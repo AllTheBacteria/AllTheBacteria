@@ -18,6 +18,7 @@ Future releases will include
 2. Pan-genomes and harmonised gene names within species (for the top N species) for representative genomes chosen using poppunk clusters and QC metrics.
 3. MLST, various species specific typing, AMR
 4. Search indexes (COBS, pp-sketchlib, sourmash, others?)
+
 No timeline on these yet - see project management below.
 
 ## Distribution
