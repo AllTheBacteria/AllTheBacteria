@@ -8,8 +8,7 @@ First release will contain
 2. About 2 million Shovill assemblies, one for each identifier above. (Any contig aligning to human T2T or mouse is removed)
 3. File(s) summarising taxonomic and contamination statistics based on mapping reads to human, mouse, and Kraken/Bracken of reads with a GTDB database; CheckM2 etc.
 4. A filelist specifying an initial suggested list of "high quality" assemblies (ie a subset of the 2 million, based on the QC stats)
-5. A README decribing all this, plus pointing to a Github with links to how all of the above was done, plus explaining rules of engagement (see below)
-
+5. A README decribing all this, plus pointing to a Github repository containing a snakemake workflow allowing all of the above to be reproduced, plus links to frozen containers,  plus explaining rules of engagement (see below)
 Timeline - will aim for November 2023. Assemblies are done, just QC left.
 
 ## Further releases
