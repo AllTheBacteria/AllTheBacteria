@@ -3,29 +3,32 @@ Follow up to Grace Blackwell's 661k dataset, for 2023.
 Could really do with a better project (and repo) name. CurrentBacterialGenomes2023?
 
 ## Release 0.1
-First release will contain
-1. Unique identifier for each assembly, with a 1:1 mapping with ENA/SRA run ids.
-2. About 2 million Shovill assemblies, one for each identifier above. (Any contig aligning to human T2T or mouse is removed)
-3. File(s) summarising taxonomic and contamination statistics based on mapping reads to human, mouse, and Kraken/Bracken of reads with a GTDB database; CheckM2 etc.
-4. A filelist specifying an initial suggested list of "high quality" assemblies (ie a subset of the 2 million, based on the QC stats)
-5. A README decribing all this, plus pointing to a Github repository containing a snakemake workflow allowing all of the above to be reproduced, plus links to frozen containers,  plus explaining rules of engagement (see below)
-Timeline - will aim for November 2023. Assemblies are done, just QC left.
+Full details here: https://www.biorxiv.org/content/10.1101/2024.03.08.584059v1
+First release contains
+1. About 2 million Shovill assemblies, identified by ENA sample id
+2. summary of assembly statistics
+3. File(s) summarising taxonomic and contamination statistics based on sylph taxnonomic abundance estimation (GTDB r214), and CheckM2 
+4. A filelist specifying  "high quality" assemblies
+5. A README decribing all this.
+The assembly workflow is in github , but we don't have a distributable container for it yet.
+   
 
 ## Further releases
 Future releases will include
-1. Annotation (bakta at least)
-2. Pan-genomes and harmonised gene names within species (for the top N species) for representative genomes chosen using poppunk clusters and QC metrics.
-3. MLST, various species specific typing, AMR
-4. Search indexes (COBS, pp-sketchlib, sourmash, others?)
+1. The process which is mapping all contigs against the human genome to id contamination is taking some time. We will have to make a new release
+   which removes a small number of contigs from a small proportion of the genomes.
+2. More search indexes to come.   
+3. Annotation (bakta at least)
+4. Pan-genomes and harmonised gene names within species (for the top N species) for representative genomes chosen using poppunk clusters and QC metrics.
+5. MLST, various species specific typing, AMR
 
-No timeline on these yet - see project management below.
 
 ## Distribution
 Data will be distributed at least by
-1. EBI Globus endpoint
-2. Zenodo, so we can have a data doi. Zipped, the assemblies should only be ~100Gb.
-Will look into AWS
+1. EBI ftp which is simutaneously accessible by Globus and Aspera.
+2. Zenodo would be good to add
 
+   
 ## Rules of Engagement with the data
 Once Release 0.1 is out, anyone/everyone is welcome to use the data and publish with it. There is no expectation that the people who made the release/data should be co-authors on these publications, but we would appreciate citation of the data doi. Once we manage to write a paper about this, we ask that anyone using the data, cites the paper. 
 
