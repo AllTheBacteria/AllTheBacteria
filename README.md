@@ -4,6 +4,7 @@ Could really do with a better project (and repo) name. CurrentBacterialGenomes20
 
 ## Release 0.1
 Full details here: https://www.biorxiv.org/content/10.1101/2024.03.08.584059v1
+Data here: https://ftp.ebi.ac.uk/pub/databases/AllTheBacteria/Releases/0.1/
 First release contains
 1. About 2 million Shovill assemblies, identified by ENA sample id
 2. summary of assembly statistics
@@ -35,10 +36,11 @@ Once Release 0.1 is out, anyone/everyone is welcome to use the data and publish 
 ## Rules of Involvement with the project
 All welcome, contact us via Github, Slack or the monthly zoom calls. Anyone who contributes to the project, through analysis, project management or any other means, ought to be an author of the paper. 
 
-## Project Management
-1. In terms of tracking, this will be done via Github. @happykhan has volunteered to sort out kanban integration in github (not via zenhub i believe, but something else)
-2. I propose we have monthly zoom calls to keep in touch with updates from each person who has taken on a work package, default length of a call should be 15 mins unless we have something to say. I'd suggest we start them after Release 0.1, but there are a number of people who have kindly volunteered to take on work, and if anyone wants to start sooner, that's fine with me.
+## Next zoom calls
+22nd March 2024, 9am and 4pm GMT
+
+
 
 ## FAQ
-1. What happens if two people want to run their competing methods (bad example, prokka versus bakta or one AMR tool versus another). First, anyone can do anything they like, but to get into the releases, we should discuss on a zoom call and make a decision. I propose we tend towards allowing multiple analyses (eg I intend to run bakta on everything but if someone wants to run prokka too, we should we ok to add that to the release too). However, if it starts to get silly with people wanting 4 tools each run with 3 parameters, then I think we get a lot stricter - this compute isn't free (in terms of carbon, or money), so we'll make a decision and do something limited. 
+1. What happens if two people want to run their competing methods (bad example, prokka versus bakta or one AMR tool versus another). First, anyone can do anything they like, but to get into the releases, we should discuss on a zoom call and make a decision. We shall tend towards allowing multiple analyses (eg we intend to run bakta on everything but if someone wants to run prokka too, we should we ok to add that to the release too). However, if it starts to get silly with people wanting 4 tools each run with 3 parameters, then I think we get a lot stricter - this compute isn't free (in terms of carbon, or money), so we'll make a decision and do something limited. 
 
