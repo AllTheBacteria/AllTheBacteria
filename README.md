@@ -31,7 +31,7 @@ Data will be distributed at least by
 
    
 ## Rules of Engagement with the data
-Once Release 0.1 is out, anyone/everyone is welcome to use the data and publish with it. There is no expectation that the people who made the release/data should be co-authors on these publications, but we would appreciate citation of the data doi. Once we manage to write a paper about this, we ask that anyone using the data, cites the paper. 
+Once Release 0.1 is out, anyone/everyone is welcome to use the data and publish with it. There is no expectation that the people who made the release/data should be co-authors on these publications, but we would appreciate citation of the preprint (https://www.biorxiv.org/content/10.1101/2024.03.08.584059v1). 
 
 ## Rules of Involvement with the project
 All welcome, contact us via Github, Slack or the monthly zoom calls. Anyone who contributes to the project, through analysis, project management or any other means, ought to be an author of the paper. 
