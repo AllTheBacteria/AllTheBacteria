@@ -1,6 +1,7 @@
 # AllTheBacteria
-Follow up to Grace Blackwell's 661k dataset, for 2023.
-Could really do with a better project (and repo) name. CurrentBacterialGenomes2023?
+All WGS isolate bacterial INSDC data to June 2023uniformly assembled, QC-ed, annotated, searchable.
+
+Follow up to Grace Blackwell's 661k dataset (which covered everything to Nov 2018).
 
 ## Release 0.1
 Full details here: https://www.biorxiv.org/content/10.1101/2024.03.08.584059v1
