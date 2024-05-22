@@ -3,9 +3,28 @@ All WGS isolate bacterial INSDC data to June 2023uniformly assembled, QC-ed, ann
 
 Follow up to Grace Blackwell's 661k dataset (which covered everything to Nov 2018).
 
+Preprint: https://doi.org/10.1101/2024.03.08.584059
+
+## Latest Release 0.2
+The data are here: https://ftp.ebi.ac.uk/pub/databases/AllTheBacteria/Releases/0.2/
+
+Changes from release 0.1 are documented in detail in the release 0.2 readme: https://ftp.ebi.ac.uk/pub/databases/AllTheBacteria/Releases/0.2/README.md
+
+Summary of changes:
+* Approximately 12k contigs were removed, due to matching the human genome
+* Reran assembly stats and checkm2 on the changed assemblies
+* The "high quality" dataset changed slightly because of the assemblies changing
+* Species call for each sample tidied up
+* Added phylign indexes for searching/aligning query sequences (see https://github.com/AllTheBacteria/Phylign/blob/main/README.md)
+* Updated sketchlib indexes
+* Added file of md5sum of all files in the release
+
+
 ## Release 0.1
 Full details here: https://www.biorxiv.org/content/10.1101/2024.03.08.584059v1
-Data here: https://ftp.ebi.ac.uk/pub/databases/AllTheBacteria/Releases/0.1/
+The data were here: https://ftp.ebi.ac.uk/pub/databases/AllTheBacteria/Releases/0.1/
+but have been deleted due to human contamination. Please use release 0.2 instead.
+
 First release contains
 1. About 2 million Shovill assemblies, identified by ENA sample id
 2. summary of assembly statistics
@@ -14,15 +33,12 @@ First release contains
 5. A README decribing all this.
 The assembly workflow is in github , but we don't have a distributable container for it yet.
    
-
 ## Further releases
 Future releases will include
-1. The process which is mapping all contigs against the human genome to id contamination is taking some time. We will have to make a new release
-   which removes a small number of contigs from a small proportion of the genomes.
-2. More search indexes to come.   
-3. Annotation (bakta at least)
-4. Pan-genomes and harmonised gene names within species (for the top N species) for representative genomes chosen using poppunk clusters and QC metrics.
-5. MLST, various species specific typing, AMR
+1. More search indexes to come.   
+2. Annotation (bakta at least)
+3. Pan-genomes and harmonised gene names within species (for the top N species) for representative genomes chosen using poppunk clusters and QC metrics.
+4. MLST, various species specific typing, AMR
 
 
 ## Distribution
