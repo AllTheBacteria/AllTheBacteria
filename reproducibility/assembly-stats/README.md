@@ -1,10 +1,10 @@
-# Assembly stats
+# Assembly stats
 
 The final output file of assembly statistics is available here:
 https://osf.io/h7g42.
 
 Version of `assembly-stats` used: git commit 7bdb58b from
-https://github.com/sanger-pathogens/assembly-stats
+https://github.com/sanger-pathogens/assembly-stats.
 
 The main script is `assembly_stats_batch.py`, which runs `assembly-stats`
 on a batch of assemblies, outputting a single TSV file of results.
