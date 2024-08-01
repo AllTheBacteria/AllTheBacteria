@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 #SBATCH --job-name=checkm2
 #SBATCH --output=/FIX_PATH/Logs/o/%a.o
-#SBATCH --error=/FIX_ATH/Logs/e/%a.e
+#SBATCH --error=/FIX_PATH/Logs/e/%a.e
 #SBATCH --mem=2867M
 #SBATCH --time=1800
 #SBATCH --cpus-per-task=1
