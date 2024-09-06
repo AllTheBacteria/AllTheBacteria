@@ -5,6 +5,8 @@ https://github.com/leoisl/bacterial_assembly_pipeline
 and then separately post-processed for human decontamination.
 
 This page describes assemblies after release 0.2.
+At the time of writing, this has been used to make the incremental
+release 2024-08.
 
 ## Overview
 
