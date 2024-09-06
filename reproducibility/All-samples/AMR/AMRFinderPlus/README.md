@@ -8,6 +8,8 @@ The workflow was run on the EBI SLURM cluster.
 
 AMRFinderPlus was run in 10000 batches with each batch created by the `split_into_batches` checkpoint.
 
+All of the database files needed to rerun this analysis are available at https://osf.io/faz5m.
+
 ## Inputs
 
 * `sample_list`: A newline delimited files of sample IDs to run on.
