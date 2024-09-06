@@ -1,0 +1,401 @@
+import os
+import gzip
+import numpy as np
+from tqdm import tqdm
+import shutil
+
+# path to samples of interest
+sample_list = "/hps/nobackup/iqbal/dander/2kk_analysis/AMRFP/AMRFP_samples.txt"
+# path to file of fastq paths
+path_file = "/nfs/research/zi/projects/AllTheBacteria/file_list.0.2.tsv.gz"
+# path of GTDB species calls
+species_file = "/nfs/research/zi/projects/AllTheBacteria/Releases/0.2/metadata/species_calls.tsv.gz"
+# define the number of batches
+NUM_BATCHES = 10000
+# define the mapping from GTDB to AMRFinderPlus species
+GTDB_AMRFP_mapping = {
+    "Salmonella diarizonae": "Salmonella",
+    "Salmonella bongori": "Salmonella",
+    "Salmonella arizonae": "Salmonella",
+    "Salmonella enterica": "Salmonella",
+    "Salmonella houtenae": "Salmonella",
+    "Escherichia coli_E": "Escherichia",
+    "Escherichia whittamii": "Escherichia",
+    "Pseudescherichia sp002918705": "Escherichia",
+    "Pseudescherichia sp002298805": "Escherichia",
+    "Escherichia marmotae": "Escherichia",
+    "Escherichia fergusonii": "Escherichia",
+    "Escherichia albertii": "Escherichia",
+    "Escherichia coli": "Escherichia",
+    "Escherichia sp002965065": "Escherichia",
+    "Pseudescherichia vulneris": "Escherichia",
+    "Escherichia sp005843885": "Escherichia",
+    "Escherichia ruysiae": "Escherichia",
+    "Mycobacterium tuberculosis": None,
+    "Staphylococcus aureus": "Staphylococcus_aureus",
+    "Streptococcus pseudopneumoniae_A": "Streptococcus_pneumoniae",
+    "Streptococcus pneumoniae_A": "Streptococcus_pneumoniae",
+    "Streptococcus pneumoniae_B": "Streptococcus_pneumoniae",
+    "Streptococcus pseudopneumoniae_N": "Streptococcus_pneumoniae",
+    "Streptococcus pneumoniae_C": "Streptococcus_pneumoniae",
+    "Streptococcus pseudopneumoniae_J": "Streptococcus_pneumoniae",
+    "Streptococcus pseudopneumoniae_L": "Streptococcus_pneumoniae",
+    "Streptococcus pneumoniae": "Streptococcus_pneumoniae",
+    "Streptococcus pseudopneumoniae_E": "Streptococcus_pneumoniae",
+    "Streptococcus pseudopneumoniae_C": "Streptococcus_pneumoniae",
+    "Streptococcus pseudopneumoniae_H": "Streptococcus_pneumoniae",
+    "Streptococcus pneumoniae_E": "Streptococcus_pneumoniae",
+    "Streptococcus pseudopneumoniae_D": "Streptococcus_pneumoniae",
+    "Streptococcus pseudopneumoniae_M": "Streptococcus_pneumoniae",
+    "Streptococcus pseudopneumoniae_G": "Streptococcus_pneumoniae",
+    "Streptococcus pseudopneumoniae": "Streptococcus_pneumoniae",
+    "Streptococcus pseudopneumoniae_P": "Streptococcus_pneumoniae",
+    "Klebsiella pneumoniae": "Klebsiella_pneumoniae",
+    "Klebsiella quasipneumoniae": "Klebsiella_pneumoniae",
+    "unknown": None,
+    "Neisseria gonorrhoeae": "Neisseria_gonorrhoeae",
+    "Neisseria meningitidis": "Neisseria_meningitidis",
+    "Streptococcus pyogenes": "Streptococcus_pyogenes",
+    "Listeria monocytogenes_B": None,
+    "Listeria monocytogenes": None,
+    "Enterococcus_B faecium": "Enterococcus_faecium",
+    "Enterococcus_B hirae": "Enterococcus_faecium",
+    "Acinetobacter baumannii": "Acinetobacter_baumannii",
+    "Acinetobacter baumannii_B": "Acinetobacter_baumannii",
+    "Burkholderia cepacia": "Burkholderia_cepacia",
+    "Burkholderia mallei": "Burkholderia_mallei",
+    "Burkholderia pseudomallei": "Burkholderia_pseudomallei",
+    "Campylobacter_D avium": "Campylobacter",
+    "Campylobacter_D peloridis": "Campylobacter",
+    "Campylobacter_A concisus_AE": "Campylobacter",
+    "Campylobacter_A concisus_AB": "Campylobacter",
+    "Campylobacter_D sp004378855": "Campylobacter",
+    "Campylobacter_D troglodytis": "Campylobacter",
+    "Campylobacter_D sp020135845": "Campylobacter",
+    "Campylobacter sp002139875": "Campylobacter",
+    "Campylobacter_D lari": "Campylobacter",
+    "Campylobacter_A sp905120475": "Campylobacter",
+    "Campylobacter_D insulaenigrae": "Campylobacter",
+    "Campylobacter_D sp016598935": "Campylobacter",
+    "Campylobacter_A showae_A": "Campylobacter",
+    "Campylobacter_A concisus_B": "Campylobacter",
+    "Campylobacter testudinum": "Campylobacter",
+    "Campylobacter_A concisus_AA": "Campylobacter",
+    "Campylobacter_D jejuni_D": "Campylobacter",
+    "Campylobacter lanienae": "Campylobacter",
+    "Campylobacter_A concisus_D": "Campylobacter",
+    "Campylobacter infans": "Campylobacter",
+    "Campylobacter_A concisus_Y": "Campylobacter",
+    "Campylobacter sp945873855": "Campylobacter",
+    "Campylobacter_D coli_B": "Campylobacter",
+    "Campylobacter_A concisus_R": "Campylobacter",
+    "Campylobacter_D jejuni_A": "Campylobacter",
+    "Campylobacter_D sp008633915": "Campylobacter",
+    "Campylobacter_B ureolyticus_A": "Campylobacter",
+    "Campylobacter_A showae_B": "Campylobacter",
+    "Campylobacter sp002139855": "Campylobacter",
+    "Campylobacter_A concisus_F": "Campylobacter",
+    "Campylobacter_B gracilis": "Campylobacter",
+    "Campylobacter_B sputorum": "Campylobacter",
+    "Campylobacter_D sp006864535": "Campylobacter",
+    "Campylobacter_D jejuni_B": "Campylobacter",
+    "Campylobacter_D sp006864455": "Campylobacter",
+    "Campylobacter_A concisus_O": "Campylobacter",
+    "Campylobacter_A concisus_L": "Campylobacter",
+    "Campylobacter_A sp905120465": "Campylobacter",
+    "Campylobacter_A concisus_N": "Campylobacter",
+    "Campylobacter_D armoricus": "Campylobacter",
+    "Campylobacter_D sp003627915": "Campylobacter",
+    "Campylobacter_A mucosalis": "Campylobacter",
+    "Campylobacter hyointestinalis": "Campylobacter",
+    "Campylobacter_A concisus_E": "Campylobacter",
+    "Campylobacter_B ureolyticus": "Campylobacter",
+    "Campylobacter_B sputorum_B": "Campylobacter",
+    "Campylobacter_A concisus_A": "Campylobacter",
+    "Campylobacter_D jejuni_C": "Campylobacter",
+    "Campylobacter_D bilis": "Campylobacter",
+    "Campylobacter_A sp905372745": "Campylobacter",
+    "Campylobacter_A curvus": "Campylobacter",
+    "Campylobacter_A concisus_AF": "Campylobacter",
+    "Campylobacter_D helveticus": "Campylobacter",
+    "Campylobacter_A rectus": "Campylobacter",
+    "Campylobacter_A concisus_T": "Campylobacter",
+    "Campylobacter_A concisus_M": "Campylobacter",
+    "Campylobacter_D upsaliensis": "Campylobacter",
+    "Campylobacter_D volucris": "Campylobacter",
+    "Campylobacter_B corcagiensis": "Campylobacter",
+    "Campylobacter_D volucris_A": "Campylobacter",
+    "Campylobacter_D lari_D": "Campylobacter",
+    "Campylobacter_D lari_C": "Campylobacter",
+    "Campylobacter sp002139915": "Campylobacter",
+    "Campylobacter_D sp006864365": "Campylobacter",
+    "Campylobacter_D cuniculorum": "Campylobacter",
+    "Campylobacter_D sp016599045": "Campylobacter",
+    "Campylobacter_A concisus_I": "Campylobacter",
+    "Campylobacter fetus": "Campylobacter",
+    "Campylobacter_D concheus": "Campylobacter",
+    "Campylobacter_A concisus_AC": "Campylobacter",
+    "Campylobacter_D coli_A": "Campylobacter",
+    "Campylobacter_D jejuni": "Campylobacter",
+    "Campylobacter_A concisus_AD": "Campylobacter",
+    "Campylobacter lawsonii": "Campylobacter",
+    "Campylobacter_B hominis": "Campylobacter",
+    "Campylobacter_A concisus_C": "Campylobacter",
+    "Campylobacter_A showae_E": "Campylobacter",
+    "Campylobacter_D subantarcticus": "Campylobacter",
+    "Campylobacter_A concisus_J": "Campylobacter",
+    "Campylobacter_D novaezeelandiae": "Campylobacter",
+    "Campylobacter_E canadensis": "Campylobacter",
+    "Campylobacter_D coli": "Campylobacter",
+    "Campylobacter_A concisus": "Campylobacter",
+    "Campylobacter_D hepaticus": "Campylobacter",
+    "Campylobacter_E sp018501205": "Campylobacter",
+    "Campylobacter_A showae_D": "Campylobacter",
+    "Campylobacter_B geochelonis": "Campylobacter",
+    "Citrobacter freundii": "Citrobacter_freundii",
+    "Corynebacterium diphtheriae" : "Corynebacterium_diphtheriae",
+    "Clostridioides difficile_A": "Clostridioides_difficile",
+    "Clostridioides difficile_F": "Clostridioides_difficile",
+    "Clostridioides difficile": "Clostridioides_difficile",
+    "Clostridioides difficile_E": "Clostridioides_difficile",
+    "Clostridioides difficile_D": "Clostridioides_difficile",
+    "Enterobacter cloacae_L": "Enterobacter_cloacae",
+    "Enterobacter cloacae_O": "Enterobacter_cloacae",
+    "Enterobacter cloacae_M": "Enterobacter_cloacae",
+    "Enterobacter cloacae_P": "Enterobacter_cloacae",
+    "Enterobacter cloacae_Q": "Enterobacter_cloacae",
+    "Enterobacter cloacae_I": "Enterobacter_cloacae",
+    "Enterobacter cloacae": "Enterobacter_cloacae",
+    "Enterobacter cloacae_N": "Enterobacter_cloacae",
+    "Enterobacter asburiae": "Enterobacter_asburiae",
+    "Enterobacter asburiae_B": "Enterobacter_asburiae",
+    "Enterobacter asburiae_D": "Enterobacter_asburiae",
+    "Enterobacter asburiae_E": "Enterobacter_asburiae",
+    "Enterococcus faecalis": "Enterococcus_faecalis",
+    "Enterococcus_B faecium": "Enterococcus_faecium",
+    "Escherichia coli_E": "Escherichia",
+    "Escherichia whittamii": "Escherichia",
+    "Escherichia marmotae": "Escherichia",
+    "Escherichia fergusonii": "Escherichia",
+    "Escherichia albertii": "Escherichia",
+    "Escherichia coli": "Escherichia",
+    "Escherichia sp002965065": "Escherichia",
+    "Escherichia sp005843885": "Escherichia",
+    "Escherichia ruysiae": "Escherichia",
+    "Klebsiella oxytoca": "Klebsiella_oxytoca",
+    "Klebsiella pneumoniae": "Klebsiella_pneumoniae",
+    "Klebsiella aerogenes": "Klebsiella_pneumoniae",
+    "Klebsiella quasipneumoniae": "Klebsiella_pneumoniae",
+    "Neisseria gonorrhoeae": "Neisseria_gonorrhoeae",
+    "Neisseria meningitidis": "Neisseria_meningitidis",
+    "Pseudomonas aeruginosa": "Pseudomonas_aeruginosa",
+    "Pseudomonas aeruginosa_A": "Pseudomonas_aeruginosa",
+    "Salmonella diarizonae": "Salmonella",
+    "Salmonella bongori": "Salmonella",
+    "Salmonella arizonae": "Salmonella",
+    "Salmonella enterica": "Salmonella",
+    "Salmonella houtenae": "Salmonella",
+    "Serratia marcescens_J": "Serratia_marcescens",
+    "Serratia marcescens_K": "Serratia_marcescens",
+    "Serratia marcescens": "Serratia_marcescens",
+    "Staphylococcus aureus": "Staphylococcus_aureus",
+    "Staphylococcus pseudintermedius": "Staphylococcus_pseudintermedius",
+    "Streptococcus agalactiae": "Streptococcus_agalactiae",
+    "Streptococcus pseudopneumoniae_A": "Streptococcus_pneumoniae",
+    "Streptococcus pneumoniae_A": "Streptococcus_pneumoniae",
+    "Streptococcus pneumoniae_B": "Streptococcus_pneumoniae",
+    "Streptococcus pseudopneumoniae_N": "Streptococcus_pneumoniae",
+    "Streptococcus pneumoniae_C": "Streptococcus_pneumoniae",
+    "Streptococcus pseudopneumoniae_J": "Streptococcus_pneumoniae",
+    "Streptococcus pseudopneumoniae_L": "Streptococcus_pneumoniae",
+    "Streptococcus pneumoniae": "Streptococcus_pneumoniae",
+    "Streptococcus pseudopneumoniae_E": "Streptococcus_pneumoniae",
+    "Streptococcus pseudopneumoniae_C": "Streptococcus_pneumoniae",
+    "Streptococcus pseudopneumoniae_H": "Streptococcus_pneumoniae",
+    "Streptococcus pneumoniae_E": "Streptococcus_pneumoniae",
+    "Streptococcus pseudopneumoniae_D": "Streptococcus_pneumoniae",
+    "Streptococcus pseudopneumoniae_M": "Streptococcus_pneumoniae",
+    "Streptococcus pseudopneumoniae_G": "Streptococcus_pneumoniae",
+    "Streptococcus pseudopneumoniae": "Streptococcus_pneumoniae",
+    "Streptococcus pseudopneumoniae_P": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_BG": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_BB": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_BU": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_AH": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_J": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_AV": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_I": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_AX": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_BN": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_N": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_BA": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_AD": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_AK": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_A": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_BR": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_O": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_BP": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_H": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_AI": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_P": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_BW": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_BK": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_AR": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_D": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_BV": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_AY": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_BE": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_K": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_BJ": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_F": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_Q": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_AW": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_BQ": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_BI": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_L": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_E": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_C": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_AQ": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_BD": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_AC": "Streptococcus_pneumoniae",
+    "Streptococcus mitis": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_BH": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_BC": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_BM": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_AF": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_AZ": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_AT": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_AP": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_W": "Streptococcus_pneumoniae",
+    "Streptococcus mitis_Y": "Streptococcus_pneumoniae",
+    "Streptococcus pyogenes": "Streptococcus_pyogenes",
+    "Vibrio cholerae": "Vibrio_cholerae",
+    "Vibrio vulnificus": "Vibrio_vulnificus",
+    "Vibrio parahaemolyticus": "Vibrio_parahaemolyticus"
+    }
+
+rule all:
+    input:
+        "amrfp.done"
+
+def list_samples_of_interest(species_file, sample_list):
+    with open(sample_list) as i:
+        samples_of_interest = set([l for l in i.read().split("\n") if l != "" and l != " "])
+    sample_mapping = {}
+    with gzip.open(species_file, "rt") as fh:
+        for line in fh:
+            tab_split = line.split("\t")
+            if tab_split[0] in samples_of_interest:
+                sample_mapping[tab_split[0]] = tab_split[1]
+    return sample_mapping
+
+checkpoint split_into_batches:
+    input:
+        input_file=path_file,
+        species_mapping=species_file,
+        sample_list=sample_list
+    output:
+        directory("batch_lists")
+    params:
+        batch_count=NUM_BATCHES
+    threads: 1
+    run:
+        def split_assemblies_into_batches(path_file, output_dir, samples_of_interest):
+            all_paths = []
+            with gzip.open(path_file, "rt") as fh:
+                for line in fh:
+                    line = line.replace("\n", "")
+                    if line == "":
+                        continue
+                    tab_split = line.split("\t")
+                    if len(tab_split) == 1:
+                        tab_split = line.split("    ")
+                    if len(tab_split) == 1:
+                        tab_split = line.split("  ")
+                    if tab_split[0] in samples_of_interest:
+                        all_paths.append(tab_split[0] + "\t" + "/nfs/research/zi/projects/AllTheBacteria/" + tab_split[1] + "\t" + samples_of_interest[tab_split[0]])
+            # split into batches
+            batches = np.array_split(all_paths, params.batch_count)
+            for batch_id in tqdm(range(len(batches))):
+                output_batch_file = os.path.join(output_dir, f"batch_{batch_id}.txt")
+                with open(output_batch_file, "w") as out_file:
+                    for path in batches[batch_id]:
+                        out_file.write(f"{path}\n")
+
+        # make the output directory
+        if not os.path.exists(output[0]):
+            os.mkdir(output[0])
+        # get the samples of interest
+        samples_of_interest = list_samples_of_interest(input.species_mapping, input.sample_list)
+        # Create batches and write to files
+        split_assemblies_into_batches(input.input_file, output[0], samples_of_interest)
+
+rule run_AMRFinderPlus:
+    input:
+        batch_file = "batch_lists/batch_{batch_id}.txt"
+    output:
+        results = "AMRFinderPlus_results/batch_{batch_id}/amrfinderplus_results.txt"
+    params:
+        batch_id = "{batch_id}"
+    threads: 1
+    run:
+        # import the file listing the assembly paths
+        with open(input[0]) as i:
+            lines = i.read().split("\n")
+        # make the directory
+        os.makedirs(os.path.join(os.path.dirname(output[0]), "runs"), exist_ok=True)
+        # iterate through the lines
+        runs = []
+        failed_runs = []
+        for row in tqdm(lines):
+            if row == "":
+                continue
+            tab_split = row.split("\t")
+            if len(tab_split) == 1:
+                tab_split = row.split("    ")
+            if len(tab_split) == 1:
+                tab_split = row.split("  ")
+            sample, file_path, species = tab_split
+            out_file = os.path.join(os.path.dirname(output[0]), "runs", f"{sample}.txt")
+            if species in GTDB_AMRFP_mapping and GTDB_AMRFP_mapping[species]:
+                command = f"amrfinder --name {sample} --nucleotide {file_path} --output {out_file} --organism {GTDB_AMRFP_mapping[species]} --print_node --plus -t {threads}"
+            else:
+                command = f"amrfinder --name {sample} --nucleotide {file_path} --output {out_file} --print_node --plus -t {threads}"
+            try:
+                shell(command)
+            except:
+                failed_runs.append(sample)
+            runs.append((sample, out_file))
+        # aggregate the results
+        aggregated = []
+        empty_runs = []
+        for run in runs:
+            with open(run[1]) as i:
+                output_lines = i.read().split("\n")[1:]
+            if output_lines[0] != "" and output_lines[0] != " " and output_lines[0] != "\n":
+                aggregated += [l for l in output_lines if l != ""]
+            else:
+                empty_runs.append(run[0])
+        # write out the aggregated results
+        with open(output[0], "w") as o:
+            o.write("\n".join(aggregated))
+        # write a list of samples where no AMR genes were found
+        with open(os.path.join(os.path.dirname(output[0]), "empty_outputs.txt"), "w") as o:
+            o.write("\n".join(empty_runs))
+        # write a list of samples that failed
+        with open(os.path.join(os.path.dirname(output[0]), "failed_runs.txt"), "w") as o:
+            o.write("\n".join(failed_runs))
+        # delete the individual outputs
+        shutil.rmtree(os.path.join(os.path.dirname(output[0]), "runs"))
+
+def get_amrfp_outputs(wildcards):
+    checkpoint_output = checkpoints.split_into_batches.get(**wildcards).output[0]
+    return expand("AMRFinderPlus_results/batch_{batch_id}/amrfinderplus_results.txt", batch_id=range(NUM_BATCHES))
+
+rule aggregate_outputs:
+    input:
+        get_amrfp_outputs
+    output:
+        touch("amrfp.done")
+    run:
+        pass
