@@ -17,3 +17,7 @@ AMRFinderPlus was run in 10000 batches with each batch created by the `split_int
 ## Species calls
 
 `GTDB_AMRFP_mapping` is a dictionary mapping the GTDB species name to the AMRFinderPlus `--organism`. If there is no AMRFinderPlus organism available to match to the GTDB species for a particular sample then this option was not used when running AMRFinderPlus.
+
+## Final output
+
+All AMRFinderPlus results, files of failed runs and files of empty runs were joined together ad-hoc and a status file created to indicate if AMRFinderplus finished successfully ("PASS"), failed ("FAILED") or is yet to be run ("NOT DONE").
