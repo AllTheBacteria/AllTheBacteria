@@ -5,7 +5,7 @@ from tqdm import tqdm
 import shutil
 
 # path to samples of interest
-sample_list = "/hps/nobackup/iqbal/dander/2kk_analysis/AMRFP/final_AMRFP_results/AMRFP_samples.txt"
+sample_list = "/hps/nobackup/iqbal/dander/2kk_analysis/AMRFP/AMRFP_samples.txt"
 # path to file of fastq paths
 path_file = "/nfs/research/zi/projects/AllTheBacteria/file_list.0.2.tsv.gz"
 # path of GTDB species calls
