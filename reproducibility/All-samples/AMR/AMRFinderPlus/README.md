@@ -16,4 +16,4 @@ AMRFinderPlus was run in 10000 batches with each batch created by the `split_int
 
 ## Species calls
 
-`GTDB_AMRFP_mapping` is a dictionary mapping the GTDB species name to the AMRFinderPlus `--organism`. If there is no AMRFinderPlus organism available then this option was not used when running AMRFinderPlus.
+`GTDB_AMRFP_mapping` is a dictionary mapping the GTDB species name to the AMRFinderPlus `--organism`. If there is no AMRFinderPlus organism available to match to the GTDB species for a particular sample then this option was not used when running AMRFinderPlus.
