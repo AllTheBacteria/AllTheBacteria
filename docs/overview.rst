@@ -1,22 +1,35 @@
 Overview
 ========
 
-Where are the data?
--------------------
+Where are the docs/data/methods?
+--------------------------------
 
 There are three places to go, depending on what you want:
 
-1. How to download and use the data/analysis files is described in this
-   documentation you are currently reading
-2. The data are all hosted here on OSF: https://osf.io/xv7q9/
-   - this includes assembly and analysis files
-3. In-depth methods details and files for reproducibility are stored in this
-   github repository: https://github.com/AllTheBacteria/AllTheBacteria.
+1. Documentation: how to download and use the data/analysis files is described
+   in this documentation you are currently reading
+2. Files: the data are all hosted on OSF: https://osf.io/xv7q9/,
+   which includes assembly and analysis files. For bulk downloads, please
+   read :doc:`Bulk Downloads </osf_downloads>`.
+3. Methods/code: in-depth methods details and files for reproducibility are
+   stored in this github repository: https://github.com/AllTheBacteria/AllTheBacteria.
    If you are just using the data, you shouldn't need to look there.
 
 If you only want to use the data without caring about the methods then
 we suggest you read this documentation, which has the relevant links to OSF,
 as opposed to going directly to OSF.
+
+
+Releases
+--------
+
+The first batch of data is available as release 0.2. From then onwards we
+intend to make "incremental" releases, which contain new samples that are
+not included in older releases. This means that if you want the complete
+results for a particular analysis, you will need release 0.2 results plus
+all later incremental releases. When it makes sense to do so, we will
+make aggregated files of all the releases (ie 0.2 plus all incremental
+releases), so that you do not need to combine results yourself.
 
 
 A brief history of AllTheBacteria
@@ -61,12 +74,21 @@ assemblies are identical in release 0.2 on from EBI and OSF, but
 the filenames are different.
 
 
-Update in August 2024
-~~~~~~~~~~~~~~~~~~~~~
+August 2024 update
+~~~~~~~~~~~~~~~~~~
 
 After release 0.2, we processed all new data up to August 2024,
 and released these new 507,566 assemblies with the name "incremental release
 2024-08". It is called "incremental" because it only contains the new
 assemblies. This means that the complete AllTheBacteria dataset is
 release 0.2 plus incremental release 2024-08.
+
+
+Future releases
+---------------
+
+The plan is that any future releases will be "incremental", meaning they will
+be new samples only, adding in anything new since the last incremental
+release 2024-08.
+
 
