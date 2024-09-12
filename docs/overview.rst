@@ -82,9 +82,11 @@ to remove species names from the assembly files.
 
 We decided to host the data at OSF from release 0.2 onwards. All files
 on the EBI ftp site are left as an archive. Those files do have species
-names in them. The files were renamed before uploading to OSF. The
+names in them. The files were renamed before uploading to OSF, as
+described in detail in the :doc:`migration to OSF page </ebi2osf>`. The
 assemblies are identical in release 0.2 on from EBI and OSF, but
 the filenames are different.
+
 
 
 August 2024 update
