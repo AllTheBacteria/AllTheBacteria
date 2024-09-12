@@ -1,6 +1,19 @@
 Overview
 ========
 
+Current status
+--------------
+
+As of 2024-09-12:
+
+* the latest release is incremental release 2024-08
+
+* total assemblies = 2,440,377
+  (1,932,812 in release 0.2, plus 507,565 in incremental release 2024-08)
+
+
+
+
 Where are the docs/data/methods?
 --------------------------------
 
