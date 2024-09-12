@@ -1,5 +1,5 @@
-Anti-Microbial Resistance
-=========================
+Antimicrobial Resistance
+========================
 
 AMRFinder+
 ----------
