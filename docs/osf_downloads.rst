@@ -13,7 +13,7 @@ All latest files
 ----------------
 
 We provide a tab-delimited file of all the files that are on OSF for the whole
-AllTheBacteria project: `all_atb_files.tsv <https://osf.io/xv7q9/>`_.
+AllTheBacteria project: `all_atb_files.tsv <https://osf.io/r6gcp>`_.
 This is subject to change, and is updated when files change on OSF.
 
 The columns are:
