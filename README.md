@@ -1,6 +1,6 @@
 # AllTheBacteria
 
-All WGS isolate bacterial INSDC data to June 2023uniformly assembled, QC-ed, annotated, searchable.
+All WGS isolate bacterial INSDC data to August 2024 uniformly assembled, QC-ed, annotated, searchable.
 
 Follow up to Grace Blackwell's 661k dataset (which covered everything to Nov 2018).
 
