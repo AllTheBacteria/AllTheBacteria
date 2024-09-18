@@ -8,6 +8,10 @@ This page describes assemblies after release 0.2.
 At the time of writing, this has been used to make the incremental
 release 2024-08.
 
+Versions of software for incremental release 2024-08: shovill 1.1.0,
+sylph 0.5.1, MUMmer 4.0.0rc1.
+
+
 ## Overview
 
 There is a single script `process_one_sample.py`, which processes one
@@ -184,4 +188,5 @@ Some notes:
   tries to use them and throws errors. These samples have a status of
   `sylph_fail` because that is the stage that crashed. Sorry sylph, we know
   it's not really your error.
+
 
