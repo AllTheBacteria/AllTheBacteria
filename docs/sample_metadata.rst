@@ -102,7 +102,7 @@ in ``species_calls.tsv.gz``. This is made using a simple method and is
 likely to contain some errors: if a sample has a sylph match with
 more than 99% abundance then that is the species call, otherwise the species
 is called as "unknown". This call is used for compressing the assemblies
-with Minihpy (it requires species calls), and so incorrect calls do not
+with Miniphy (it requires species calls), and so incorrect calls do not
 matter for this use case.
 
 
