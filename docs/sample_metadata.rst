@@ -98,8 +98,12 @@ Some samples have no matches and there is no output - these samples are listed
 in the file ``sylph.no_matches.tsv.gz``.
 
 We also try to make a species call from the sylph output, which can be found
-in ``species_calls.tsv.gz``. See the later "high quality" section for more
-details.
+in ``species_calls.tsv.gz``. This is made using a simple method and is
+likely to contain some errors: if a sample has a sylph match with
+more than 99% abundance then that is the species call, otherwise the species
+is called as "unknown". This call is used for compressing the assemblies
+with Minihpy (it requires species calls), and so incorrect calls do not
+matter for this use case.
 
 
 Decontamination
