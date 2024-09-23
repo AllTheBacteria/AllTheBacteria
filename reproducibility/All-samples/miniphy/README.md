@@ -149,7 +149,18 @@ slurmzy run 1 make_all_the_thingz 'source ~/.bashrc && conda activate miniphy &&
 ```
 ls -d batches.n-*.miniphy | rush 'slurmzy run -t 24 -c 8 50 {} "source ~/.bashrc; cd {}; conda activate miniphy; make clean; make all"'
 ```
+### Make sample2species2file
 
+```
+ls batches/* \
+    | while read f; do \
+        cat $f \
+            | rush -k -v f=$f 'echo -e {1%..}"\t"{2@#(.+)}"\t"{f}' \
+            | csvtk replace -Ht -f 3 -p '.+/(.+)\..+' -r '$1.asm.tar.xz'; \
+        done \
+    | csvtk add-header -t -n sample,species,file \
+> sample2species2file.tsv
+```
 
 ### Rename tarballs
 
