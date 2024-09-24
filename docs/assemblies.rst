@@ -31,6 +31,8 @@ the folder "File Lists" in the top level of the `Assembly component on OSF
 The columns in this file are:
 
 * ``sample`` = the INSDC sample accession
+* ``species_sylph`` = inferred species call from running sylph on the reads (see below)
+* ``species_miniphy`` = the name miniphy gave to the species (see below)
 * ``filename_in_tar_xz`` = the FASTA filename for this sample inside the tar.xz file
 * ``tar_xz`` = the name of the tar.xz file where this sample's FASTA lives
 * ``tar_xz_url`` = URL of `tar_xz`
@@ -53,6 +55,8 @@ If you just want one sample, for example sample SAMD00555951,
 then this is the info in `file_list.all.latest.tsv.gz <https://osf.io/4yv85>`_::
 
     sample              SAMD00555951
+    species_sylph       Acinetobacter baumannii
+    species_miniphy     acinetobacter_baumannii
     filename_in_tar_xz  atb.assembly.incr_release.202408.batch.1/SAMD00555951.fa
     tar_xz              atb.assembly.incr_release.202408.batch.1.tar.xz
     tar_xz_url          https://osf.io/download/66d9a283a8ea15b31e77b451/
@@ -67,3 +71,24 @@ Extract the FASTA with::
 
     tar xf atb.assembly.incr_release.202408.batch.1.tar.xz atb.assembly.incr_release.202408.batch.1/SAMD00555951.fa
 
+
+Species calls and assembly batches
+----------------------------------
+
+Why are species calls included in the assembly file? For convenience, to allow
+getting all assemblies for a particular species. Note that one batch
+of assemblies will often contain the same species.
+
+Miniphy needs species calls to aid compression of the assembly FASTA files,
+so that similar genomes are batched together.
+We run Sylph on all reads, to get this species call for each sample.
+See the :doc:`Sylph section </species_id>` of the species page for details.
+The calls input to Miniphy are in the column ``species_sylph``.
+Miniphy changes these names (removing spaces, adding underscores) - we
+put the Miniphy name in ``species_miniphy`` column.
+
+Miniphy keeps its species names in its output files. However, for AllTheBacteria
+we want to keep species calls separate from assembly files. For this reason,
+we rename the miniphy files before releasing them.
+(Side note: release 0.2 on the EBI FTP site did have species names in them,
+but were removed while :doc:`migrating to OSF </ebi2osf>`.)
