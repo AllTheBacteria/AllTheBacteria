@@ -4,13 +4,20 @@ Overview
 Current status
 --------------
 
-As of 2024-09-12:
+Date updated: 2024-09-24.
+
+Bacteria:
 
 * the latest release is incremental release 2024-08
 
 * total assemblies = 2,440,377
   (1,932,812 in release 0.2, plus 507,565 in incremental release 2024-08)
 
+Archaea:
+
+* the only release is 2024-07
+
+* total assemblies: 815
 
 
 
