@@ -104,6 +104,18 @@ def download_reads(run_accession):
     return fq1, fq2
 
 
+def gzip_check(filename):
+    try:
+        command = ["gzip", "-t", filename]
+        logging.info("Checking valid gzip: " + " ".join(command))
+        subprocess.check_output(command)
+    except:
+        logging.info(f"Failed gzip test: {filename}")
+        return False
+
+    logging.info(f"Passed gzip test: {filename}")
+    return True
+
 
 def load_file2species_map(infile):
     genome2species = {}
@@ -129,7 +141,9 @@ def fix_sylph_columns(infile, sample, run, file2species_map):
         print("Sample", "Run", *results[0][1:], "Species", sep="\t", file=f)
         for l in results[1:]:
             genome_file = l[1].split("/")[-1]
-            assert genome_file.endswith("_genomic.fna.gz") or genome_file.endswith("_genomic.fna")
+            assert genome_file.endswith("_genomic.fna.gz") or genome_file.endswith(
+                "_genomic.fna"
+            )
             genome_file = genome_file.replace("_genomic", "")
             if genome_file.endswith(".fna"):
                 genome_file += ".gz"
@@ -309,6 +323,16 @@ except:
     set_status(status_file, "downloaded_reads_fail")
     raise Exception("Error downloading reads. Stopping")
 set_status(status_file, "downloaded_reads")
+
+
+logging.info("========= CHECK READS FASTQ GZIP OK ==========")
+fq1_gzip_ok = gzip_check(fq1)
+fq2_gzip_ok = gzip_check(fq2)
+if not (fq1_gzip_ok and fq2_gzip_ok):
+    set_status(status_file, "reads_fastq_gzip_check_fail")
+    raise Exception("Reads FASTQ file(s) failed gzip test. Stopping")
+set_status(status_file, "reads_fastq_gzip_check")
+
 
 logging.info("=============== SYLPH ========================")
 sylph_file = "sylph.tsv"
