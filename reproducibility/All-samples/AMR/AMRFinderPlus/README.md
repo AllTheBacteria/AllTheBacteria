@@ -22,4 +22,4 @@ All of the database files needed to rerun this analysis are available at https:/
 
 ## Final output
 
-All AMRFinderPlus results, files of failed runs and files of empty runs were joined together ad-hoc and a status file created to indicate if AMRFinderplus finished successfully ("PASS"), failed ("FAILED") or is yet to be run ("NOT DONE").
+All AMRFinderPlus results, files of failed runs and files of empty runs were joined together ad-hoc and a status file created to indicate if AMRFinderplus finished successfully ("PASS"), failed ("FAIL") or is yet to be run ("NOT DONE").
