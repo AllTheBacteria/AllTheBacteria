@@ -7,16 +7,16 @@ on how to contribute to the project.
 Background information
 ----------------------
 
-Where does everything live?
+Where do all the files live?
 
 * Assemblies, metadata and all analysis files are hosted at the
   AllTheBacteria project on OSF: https://osf.io/xv7q9/.
   ie this is where we expect users of the data to go.
-* Reproducibility files (scripts, methods descriptions) are on the
+* Files to reproduce the analyses (scripts, methods descriptions) are on the
   AllTheBacteria GitHub repository: https://github.com/AllTheBacteria/AllTheBacteria.
   This is where contributors should add their reproducibility files, and where
   anyone should look for methods as opposed to the actual data.
-  The exception is large files (eg containers), which go on OSF.
+  The exception is large files (eg containers or databases), which go on OSF.
 * Documentation for the end-user (ie how can I get and use the data?) is here
   on readthedocs.
 
@@ -38,8 +38,8 @@ To contribute, you will need:
 * An `OSF <https://osf.io>`_ account
 
 
-Reproducibility
----------------
+Making your analyses reproducible
+----------------------------------
 
 Please consider reproducibility before running any analysis.
 
@@ -63,7 +63,8 @@ which was run on the EBI cluster using SLURM.
 SOP for contributing
 --------------------
 
-Please note that this is a general SOP intended to cover most cases.
+Please note that this is a general standard operating procedure (SOP)
+intended to cover most cases.
 However, every analysis is different. Please ask or suggest something
 different if it makes sense to do so for your analysis. The overall aim
 is to make it as easy as we can for users to download the results from
@@ -100,7 +101,7 @@ of your data and think about the format that you would want it in.
 Please:
 
 * Take note of all commands that were run and software versions. This
-  information can be added to the methods on Github later.
+  information can be added to the reproducibility files on Github later.
 * Track all samples using the SAM* accession.
 * Keep track of which samples/releases you ran on. At the time of writing
   there is release 0.2 plus incremental release 2024-08.
@@ -152,7 +153,9 @@ on GitHub, however some files will be too big. Please note:
   For singularity, upload the image file. For docker, archive the container with
   ``docker save foo > bar.tar`` and put the archive on OSF.
 * Any other “big” files (ie too big to be sensible for git) that were used as
-  part of running the analysis should also be uploaded to OSF.
+  part of running the analysis should also be uploaded to OSF. Unless they
+  are far too big and can be obtained elsewhere (eg the AMRFinderplus database
+  is small, but the Bakta database is huge).
 
 
 GitHub pull request
