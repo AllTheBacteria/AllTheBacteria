@@ -57,7 +57,9 @@ clearly documented, even though it is not necessarily easy to rerun.
 For a concrete example see the
 `checkm2 analysis <https://github.com/AllTheBacteria/AllTheBacteria/tree/main/reproducibility/All-samples/checkm2>`_,
 which was run on the EBI cluster using SLURM.
-
+Alternateively, if you have bandwidth, please ask the community
+(via email or the MicroBio Slack channel) whether anyone is willing to help
+you make it reproducible.
 
 
 SOP for contributing
