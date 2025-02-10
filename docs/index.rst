@@ -28,6 +28,7 @@ https://github.com/AllTheBacteria/AllTheBacteria/issues
    assemblies
    species_id
    amr
+   bgcs
    archaea
    contributing
    osf_downloads
