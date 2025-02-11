@@ -176,6 +176,17 @@ Notes on the documentation:
 * this should be instructions for any user who will want to
   download your analysis files and use them.
 * The documentation is in the ``docs/`` folder.
+* If you are adding a new page, then this means adding a new ``.rst`` file
+  and adding its name (without the ``.rst``) to the ``toctree`` section of the
+  index file ``index.rst``. For example, if the new file is ``foo.rst``, then
+  also add ``foo`` to the index file.
+* The title that is in the ``foo.rst`` file - defined by the first line of the
+  file followed by a line of ``====`` of the same length - is what will appear in
+  the contents panel on the left of the readthedocs pages. Please name
+  this sensibly.
+* The order of files in the ``index.rst`` file is the same as the order that
+  is shown in readthedocs. If you add a new file, please put it in an order
+  that seems sensible.
 * You can build a local copy of the documentation by running
   ``sphinx-build -b html -d _build/doctrees . OUT/html``. This assumes that
   sphinx is installed (on Ubuntu the package is ``python3-sphinx``), and
