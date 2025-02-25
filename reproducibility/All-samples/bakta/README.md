@@ -34,58 +34,56 @@ nextflow.enable.dsl=2
 
 ...
 
-        process annotation {
+    process annotation {
 
-        tag "${sample}"
-        conda "bioconda::bakta=1.9.4"
-        cpus 4
-        memory { 16.GB * task.attempt }
-        errorStrategy = { task.attempt < 5 ? 'retry' : 'ignore' }
-        maxRetries 5
+    tag "${sample}"
+    conda "bioconda::bakta=1.9.4"
+    cpus 4
+    memory { 16.GB * task.attempt }
+    errorStrategy = { task.attempt < 5 ? 'retry' : 'ignore' }
+    maxRetries 5
 
-        input:
-                tuple val(sample), val(batch), path(assemblyPath)
+    input:
+        tuple val(sample), val(batch), path(assemblyPath)
 
+    output:
+        path("${sample}.*")
+        publishDir "${params.results}/${batch}/${sample}/", pattern: "${sample}.bakta.*.gz", mode: 'copy'
 
-        output:
-                path("${sample}.*")
-                publishDir "${params.results}/${batch}/${sample}/", pattern: "${sample}.bakta.*.gz", mode: 'copy'
-                
-        script:
-                """
+    script:
+        """
 		bakta --db "${params.baktadb}" --prefix "${sample}.bakta" --keep-contig-headers --skip-plot --threads ${task.cpus} "${assemblyPath}"
-                gzip "${sample}.bakta.tsv" "${sample}.bakta.gff3" "${sample}.bakta.gbff" "${sample}.bakta.embl" "${sample}.bakta.fna" "${sample}.bakta.ffn" "${sample}.bakta.faa" "${sample}.bakta.hypotheticals.tsv" "${sample}.bakta.hypotheticals.faa" "${sample}.bakta.json" "${sample}.bakta.txt"  
-                """
+        gzip "${sample}.bakta.tsv" "${sample}.bakta.gff3" "${sample}.bakta.gbff" "${sample}.bakta.embl" "${sample}.bakta.fna" "${sample}.bakta.ffn" "${sample}.bakta.faa" "${sample}.bakta.hypotheticals.tsv" "${sample}.bakta.hypotheticals.faa" "${sample}.bakta.json" "${sample}.bakta.txt"  
+        """
 }
 
 workflow {
-        log.info """\
-                 B A K R E P
-        ===================================
-        setupdir  :   ${params.setupdir}
-        samples   :   ${params.samples}
-        data      :   ${params.data}
-        results   :   ${params.results}
-        baktadb   :   ${params.baktadb}
-        gtdb      :   ${params.gtdb}
-        checkm2db :   ${params.checkm2db}
-        """
-        .stripIndent()
+    log.info """\
+             B A K R E P
+    ===================================
+    setupdir  :   ${params.setupdir}
+    samples   :   ${params.samples}
+    data      :   ${params.data}
+    results   :   ${params.results}
+    baktadb   :   ${params.baktadb}
+    gtdb      :   ${params.gtdb}
+    checkm2db :   ${params.checkm2db}
+    """
+    .stripIndent()
 
-        ...
+    ...
 
-        samples = channel.fromPath( params.samples )
-        .splitCsv( sep: '\t', skip: 1  )
-        .map( {
-                def sample = it[0]
-                def batch = sample.substring(3,7)
-                def assemblyPath = dataPath.resolve(batch).resolve("${sample}.fa").toAbsolutePath()
-                return [sample,batch,assemblyPath]
-        } )
+    samples = channel.fromPath( params.samples )
+    .splitCsv( sep: '\t', skip: 1  )
+    .map( {
+            def sample = it[0]
+            def batch = sample.substring(3,7)
+            def assemblyPath = dataPath.resolve(batch).resolve("${sample}.fa").toAbsolutePath()
+            return [sample,batch,assemblyPath]
+    } )
 
-        ...
+    ...
 
-        annotation(samples)
-        
+    annotation(samples)
 }
 ```
