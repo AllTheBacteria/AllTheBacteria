@@ -17,7 +17,7 @@ All original scripts used to execute Bakta on ATB assembly files are version-tag
  --setupdir /mnt/scratch/ --data assemblies/ --results results/ -with-conda  
 ```
 
-## Addiotional information
+## Additional information
 
 For the sake of file organization, BakRep internally uses different batches from ATB in order to distribute sample result files into multiple subdirectories. Different form ATB, these are not based on taxonomy but substrings of the ENA sample IDs (`batch`), for example, sample `SAMN42499475` is part of batch `N242` -> SAM **N424** 99475. However, all Bakta result files available in ATB were collected and re-distributed to match original ATB taxonomy batches.
 
