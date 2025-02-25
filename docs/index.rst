@@ -27,6 +27,7 @@ https://github.com/AllTheBacteria/AllTheBacteria/issues
    sample_metadata
    assemblies
    species_id
+   annotation
    amr
    bgcs
    archaea
