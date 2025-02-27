@@ -28,6 +28,7 @@ Use ``GNU parallel`` to run ``mlst``
 ```bash
 parallel --jobs 16 --colsep "\t" 'mlst --quiet --label {1} --scheme spneumoniae {2}' :::: atb-spneumoniae-genomes.txt | sort > atb0.2-spneumoniae-mlst.tsv
 ```
+# Serotyping
 
 Use ``GNU parallel`` to run ``PneumoKITy``
 ```bash
