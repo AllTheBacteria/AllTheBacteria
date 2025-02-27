@@ -32,7 +32,7 @@ Use ``GNU parallel`` to run ``emmtyper``
 parallel --jobs 16 --colsep "\t" 'emmtyper --workflow blast {2} --output-format verbose 2> /dev/null' :::: atb-gas-genomes.txt | awk -F"\t" -v OFS="\t" '{gsub(".tmp","",$1); print}' | sort > atb0.2-gas-emmtyper.tsv
 ```
 
-# typing EMM1.x for M1UK and M1DK 
+# Typing EMM1.x for M1UK and M1DK 
 
 Get a list of the EMM1.x genomes
 ```bash
