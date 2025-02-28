@@ -6,7 +6,7 @@ Summary
 
 All `sylph <https://github.com/bluenote-1577/sylph>`_-identified genomes from `AllTheBacteria <https://allthebacteria.readthedocs.io/en/latest/>`_ ``0.2`` and ``incremental release 2024-08`` were typed using various tools
 
-*Bordetella pertussis*
+*Bordetella pertussis* <br>
 * `mlst <https://github.com/tseemann/mlst>`_ schema `2024-06-10 <www.pubmlst.org>`_
 * `BPagST <https://pubmed.ncbi.nlm.nih.gov/35778384/>`_ schema downloaded `2024-06-10 <https://bigsdb.pasteur.fr>`_
 
