@@ -8,17 +8,17 @@ All `sylph <https://github.com/bluenote-1577/sylph>`_-identified genomes from `A
 
 *Bordetella pertussis*
 
-* `mlst <https://github.com/tseemann/mlst>`_ schema `2024-06-10 <www.pubmlst.org>`_
+* `mlst <https://github.com/tseemann/mlst>`_ schema `2024-06-10 <https://www.pubmlst.org>`_
 * `BPagST <https://pubmed.ncbi.nlm.nih.gov/35778384/>`_ schema downloaded `2024-06-10 <https://bigsdb.pasteur.fr>`_
 
 *Corynebacterium diphtherieae*
 
-* `mlst <https://github.com/tseemann/mlst>`_ schema `2024-06-10 <www.pubmlst.org>`_
+* `mlst <https://github.com/tseemann/mlst>`_ schema `2024-06-10 <https://www.pubmlst.org>`_
 * Toxin
 
 *Haemophilus* spp.
 
-* `mlst <https://github.com/tseemann/mlst>`_ schema `2024-06-10 <www.pubmlst.org>`_
+* `mlst <https://github.com/tseemann/mlst>`_ schema `2024-06-10 <https://www.pubmlst.org>`_
 * `hicap <https://pubmed.ncbi.nlm.nih.gov/30944197/>`_ v1.0.4 (capsule)
 
 *Klebsiella* spp.
@@ -43,16 +43,16 @@ All `sylph <https://github.com/bluenote-1577/sylph>`_-identified genomes from `A
 
 *Streptococcus agalactiae* (GBS)
 
-* `mlst <https://github.com/tseemann/mlst>`_ schema `2024-06-10 <www.pubmlst.org>`_
+* `mlst <https://github.com/tseemann/mlst>`_ schema `2024-06-10 <https://www.pubmlst.org>`_
 * `GBS-SBG <https://pubmed.ncbi.nlm.nih.gov/34895403/>`_ (git commit 9e53847) (capsule)
 
 *Streptococcus pneumoniae*
 
-* `mlst <https://github.com/tseemann/mlst>`_ schema `2024-06-10 <www.pubmlst.org>`_
+* `mlst <https://github.com/tseemann/mlst>`_ schema `2024-06-10 <https://www.pubmlst.org>`_
 * `PneumoKITy <https://pmc.ncbi.nlm.nih.gov/articles/PMC9837567/>`_ v1.0 (capsule)
 
 *Streptococcus pyogenes* (GAS)
 
-* `mlst <https://github.com/tseemann/mlst>`_ schema `2024-06-10 <www.pubmlst.org>`_
+* `mlst <https://github.com/tseemann/mlst>`_ schema `2024-06-10 <https://www.pubmlst.org>`_
 * `emm-typer <https://github.com/MDU-PHL/emmtyper>`_ v0.2.0
 * `assembly_typer <https://github.com/boasvdp/assembly_snptyper>`_ v0.1.0 (`M1UK <https://pubmed.ncbi.nlm.nih.gov/31519541/>`_, `M1DK <https://pubmed.ncbi.nlm.nih.gov/38961826/>`_)
