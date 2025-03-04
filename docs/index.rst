@@ -30,6 +30,7 @@ https://github.com/AllTheBacteria/AllTheBacteria/issues
    annotation
    amr
    bgcs
+   typing
    archaea
    contributing
    osf_downloads
