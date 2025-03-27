@@ -4,6 +4,80 @@ Assemblies
 Summary
 -------
 
+Assemblies can be downloaded from OSF or AWS.
+
+* Individual FASTA files for each sample are on AWS. If you want assemblies
+  for specific samples then AWS will be easiest.
+* Batched assemblies are on OSF. If you want all assemblies or large numbers
+  then get them from OSF.
+
+
+
+Downloading assemblies from AWS
+-------------------------------
+
+Individual assembly files
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A gzipped FASTA assembly file for each sample is available, with the S3 URI
+of the form::
+
+    s3://allthebacteria-assemblies/<SAMPLE_ID>.fa.gz
+
+For example::
+
+    s3://allthebacteria-assemblies/SAMD00000344.fa.gz
+
+
+To download to the current working directory using the aws cli::
+
+    aws s3 cp --no-sign-request s3://allthebacteria-assemblies/SAMD00000344.fa.gz .
+
+
+The object URL is of the form::
+
+    https://allthebacteria-assemblies.s3.eu-west-2.amazonaws.com/<SAMPLE_ID>.fa.gz
+
+For example::
+
+    https://allthebacteria-assemblies.s3.eu-west-2.amazonaws.com/SAMD00000344.fa.gz
+
+
+Download with wget::
+
+    wget https://allthebacteria-assemblies.s3.eu-west-2.amazonaws.com/SAMD00000344.fa.gz
+
+
+List of all available assemblies
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If you want to know which assemblies are on AWS, we do not recommend running
+``ls`` to find out! It will be slow.
+Every Monday, a list of current assembly files is generated. Get the latest
+file with::
+
+    aws s3 ls --no-sign-request s3://allthebacteria-metadata/allthebacteria-assemblies/assemblies-list/data/  | sort | tail -n1
+
+At the time of writing, the output was::
+
+    2025-03-23 17:38:59   79359181 b21b76f7-b5f1-4862-ba55-4b515bc6d05f.csv.gz
+
+That file can be downloaded to a file called ``latest.tsv.gz`` with::
+
+    aws s3 cp --no-sign-request s3://allthebacteria-metadata/allthebacteria-assemblies/assemblies-list/data/b21b76f7-b5f1-4862-ba55-4b515bc6d05f.csv.gz latest.tsv.gz
+
+or::
+
+    wget -O latest.tsv.gz https://allthebacteria-metadata.s3.eu-west-2.amazonaws.com/allthebacteria-assemblies/assemblies-list/data/b21b76f7-b5f1-4862-ba55-4b515bc6d05f.csv.gz
+
+That file lists all assemblies that are in the bucket ``allthebacteria-metadata``,
+plus the size, md5sum, and time of upload.
+
+
+
+Downloading assemblies from OSF
+-------------------------------
+
 FASTA files of assemblies for AllTheBacteria are available from
 OSF. To reduce file size, the assemblies are provided in batches of
 xzipped tar archives (made by
@@ -17,9 +91,6 @@ that miniphy compression makes a huge difference. For example, the
 size of the individual gzipped FASTA files for release 0.2 is
 around 3.1TB. This is too large to sensibly put on OSF.
 The total size of the same data but in compressed archive files is 89GB.
-
-Downloading assemblies
-----------------------
 
 The latest list of all samples and their related file names are
 in the file `file_list.all.latest.tsv.gz <https://osf.io/4yv85>`_.
