@@ -32,6 +32,7 @@ https://github.com/AllTheBacteria/AllTheBacteria/issues
    bgcs
    typing
    archaea
+   lexicmap
    contributing
    osf_downloads
    faq
