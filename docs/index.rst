@@ -6,9 +6,6 @@
 AllTheBacteria documentation
 ============================
 
-WARNING: this documentation is under construction, with some pages
-still needing writing. Thank you for your patience :)
-
 All WGS isolate bacterial INSDC data to August 2024 uniformly assembled,
 QC-ed, annotated, searchable.
 
