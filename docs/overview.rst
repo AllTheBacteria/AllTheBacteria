@@ -55,11 +55,19 @@ releases), so that you do not need to combine results yourself.
 A brief history of AllTheBacteria
 ---------------------------------
 
-Original data
-~~~~~~~~~~~~~
-
-AllTheBacteria is a follow up to Grace Blackwell's 661k dataset, which
-covered everything up to November 2018: https://doi.org/10.1371/journal.pbio.3001421.
+The bacterial sequence data publicly available at the global DNA archives
+is a vast source of information on the evolution of bacteria and their
+mobile elements. However, most of it is either unassembled or
+inconsistently assembled and quality-controlled. This makes it unsuitable
+for large-scale analyses, and inaccessible for most researchers to use.
+In 2021 Blackwell et al therefore released a uniformly assembled set of
+661,405 genomes, consisting of all publicly available whole genome
+sequenced bacterial isolate data as of November 2018, along with various
+search indexes (https://doi.org/10.1371/journal.pbio.3001421).
+AllTheBacteria extends that project, covering all data up to at least
+2024, and is ongoing. We also expand the scope, as we begin a global
+collaborative project to generate annotations for different species
+as desired by different research communities.
 
 
 Releases 0.1 and 0.2
