@@ -47,9 +47,10 @@ There are three ways to perform sequence alignment on AllTheBacteria assemblies 
 
    ::
 
-       # Binary's path depends on the architecture of the CPUs: amd64 or arm64
+       # Check the latest version here: https://github.com/shenwei356/LexicMap/releases
        # You can also check the pre-release here: https://github.com/shenwei356/LexicMap/issues/10
-       wget https://github.com/shenwei356/LexicMap/releases/download/v0.6.0/lexicmap_linux_arm64.tar.gz
+       # Binary's path depends on the architecture of the CPUs: amd64 or arm64
+       wget https://github.com/shenwei356/LexicMap/releases/download/v0.7.0/lexicmap_linux_arm64.tar.gz
 
        mkdir -p bin
        tar -zxvf lexicmap_linux_arm64.tar.gz -C bin
@@ -100,13 +101,12 @@ Test access.
    aws s3 ls s3://allthebacteria-lexicmap/202408/ --no-sign-request
 
    # output
-                              PRE genomes/
-                              PRE seeds/
-   2025-02-12 17:29:56          0
-   2025-02-12 17:32:39      62488 genomes.chunks.bin
-   2025-02-12 17:32:39   54209660 genomes.map.bin
-   2025-03-04 21:55:15        619 info.toml
-   2025-02-12 20:38:52     160032 masks.bin
+                               PRE genomes/
+                               PRE seeds/
+    2025-04-08 16:39:17      62488 genomes.chunks.bin
+    2025-04-08 16:39:17   54209660 genomes.map.bin
+    2025-04-08 22:32:35        619 info.toml
+    2025-04-08 22:32:36     160032 masks.bin
 
 Download the index (it’s 5.24 TiB!!!, make sure you have enough disk space).
 
@@ -115,7 +115,7 @@ Download the index (it’s 5.24 TiB!!!, make sure you have enough disk space).
    aws s3 cp s3://allthebacteria-lexicmap/202408/ atb.lmi --recursive --no-sign-request
 
    # dirsize atb.lmi
-   atb.lmi: 5.24 TiB (5,758,698,088,389)
+   atb.lmi: 5.24 TiB (5,758,875,365,595)
      2.87 TiB      seeds
      2.37 TiB      genomes
     51.70 MiB      genomes.map.bin
@@ -228,7 +228,7 @@ Steps:
        lexicmap index -S -X files.txt -O atb.lmi -b 25000 --log atb.lmi.log
 
        # dirsize atb.lmi
-       atb.lmi: 5.24 TiB (5,758,698,088,389)
+       atb.lmi: 5.24 TiB (5,758,875,365,595)
          2.87 TiB      seeds
          2.37 TiB      genomes
         51.70 MiB      genomes.map.bin
