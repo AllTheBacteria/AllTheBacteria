@@ -31,7 +31,8 @@ There are three places to go, depending on what you want:
 2. Files: the data are all hosted on OSF: https://osf.io/xv7q9/,
    which includes assembly and analysis files. For bulk downloads, please
    read :doc:`Bulk Downloads </osf_downloads>`.
-3. Methods/code: in-depth methods details and files for reproducibility are
+3. :doc:`Assemblies </assemblies>` are available from OSF, AWS, and the ENA.
+4. Methods/code: in-depth methods details and files for reproducibility are
    stored in this github repository: https://github.com/AllTheBacteria/AllTheBacteria.
    If you are just using the data, you shouldn't need to look there.
 

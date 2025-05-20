@@ -22,6 +22,7 @@ https://github.com/AllTheBacteria/AllTheBacteria/issues
 
    overview
    sample_metadata
+   metadata_sqlite
    assemblies
    species_id
    annotation

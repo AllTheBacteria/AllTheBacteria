@@ -4,12 +4,16 @@ Assemblies
 Summary
 -------
 
-Assemblies can be downloaded from OSF or AWS.
+Assemblies can be downloaded from OSF, AWS, or the ENA.
 
-* Individual FASTA files for each sample are on AWS. If you want assemblies
-  for specific samples then AWS will be easiest.
 * Batched assemblies are on OSF. If you want all assemblies or large numbers
   then get them from OSF.
+* Individual FASTA files for each sample are on AWS. If you want assemblies
+  for specific samples then AWS will be easiest.
+* Individual FASTA files are also available from the ENA. However, around
+  10,000 assemblies are not available from the ENA, since the submission
+  system rejected them due to various errors.
+
 
 
 
@@ -72,6 +76,30 @@ or::
 
 That file lists all assemblies that are in the bucket ``allthebacteria-metadata``,
 plus the size, md5sum, and time of upload.
+
+
+Downloading assemblies from the ENA
+-----------------------------------
+
+Nearly all of the assemblies have been accessioned in the ENA
+as "analysis" objects. The accessions are in the file
+``atb.metadata.202408.sqlite.assembly.tsv.xz``. It is a TSV format file of
+the table ``assembly`` from the :doc:`SQLite metadata database </metadata_sqlite>`.
+The TSV file can be downloaded with::
+
+  wget -O atb.metadata.202408.sqlite.assembly.tsv.xz https://osf.io/download/sdx5m/
+
+The relevant columns here are ``sample_accession`` and ``assembly_accession``.
+For example, sample ``SAMN23010837`` has the assembly accession
+``ERZ26049045``. Get the URL by querying the ENA::
+
+    $ wget -qO- 'https://www.ebi.ac.uk/ena/portal/api/filereport?accession=ERZ26049045&result=analysis'
+    analysis_accession	submitted_bytes	submitted_md5	submitted_ftp
+    ERZ26049045	1785435	1e59b0bf2e684f6491d9617dee9fde2b	ftp.sra.ebi.ac.uk/vol1/analysis/ERZ260/ERZ26049045/SAMN23010837.fa.gz
+
+and then get the assembly with::
+
+    wget ftp.sra.ebi.ac.uk/vol1/analysis/ERZ260/ERZ26049045/SAMN23010837.fa.gz
 
 
 
