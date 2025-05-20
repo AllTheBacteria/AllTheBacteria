@@ -2,7 +2,7 @@ Metadata and QC
 ===============
 
 Metadata files are all stored on OSF in the AllTheBacteria
-`Assembly component <https://osf.io/h7wzy/>`_.
+`Metadata component <https://osf.io/h7wzy/>`_.
 
 These files all relate to INSDC metadata, tracking which samples have been
 processed, and then results of running the assembly (and related tools)
@@ -18,13 +18,36 @@ pipeline. They include:
 * "High quality" samples (defined below)
 
 
-Latest data for all samples
----------------------------
+Metadata in flat files and SQLite database
+------------------------------------------
+
+The metadata are available in two forms:
+
+1. Flat files. These are described below. This is how all of the data
+   was released when we first uploaded everything to OSF in 2024.
+2. In an :doc:`SQLite database </metadata_sqlite>`, made in May 2025.
+   It gathers together all
+   of the ENA metadata, assembly metadata, plus slpyh, checkm2 and
+   assembly stats output. It is the same information that is in the flat files,
+   except it contains more stringent checks on the metadata, and so more
+   samples are flagged as possibly unreliable. In the future, these new checks
+   will be incorporated into a redfined "high quality" set that will be smaller
+   than the current high quality set.
+
+If you want to get detailed information on sequencing runs and samples, or
+more stringent sanity checks on the metadata, then
+the SQLite database is the best place to look. The details are complicated.
+It is all described in a separate page: :doc:`SQLite metadata </metadata_sqlite>`
+
+
+
+Metadata in flat files
+----------------------
 
 The latest complete set of data is release 0.2 plus incremental release
 2024-08.  The latest metadata files for this set are in the
 ``Aggregated/Latest_2024-08/`` folder of
-the `Assembly component <https://osf.io/h7wzy/>`_.
+the `Metadata component <https://osf.io/h7wzy/>`_.
 
 The latest status of all processed samples is in the file
 `status.202408.tsv.gz <https://osf.io/vrekj>`_.
