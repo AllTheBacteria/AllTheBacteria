@@ -344,8 +344,7 @@ release 202408 that have an ENA accession::
     WHERE dataset="Incr_release.202408" AND assembly_accession !="NA";
 
 
-Get all samples with an assembly on OSF/AWS that are longer than 1Mbp and
-with checkm2 completeness more than 99%::
+Get all samples with an assembly on OSF/AWS with N50 at least 1000000::
 
     SELECT assembly.sample_accession, assembly.dataset, assembly_stats.total_length, assembly_stats.N50
     FROM assembly JOIN assembly_stats ON assembly.sample_accession = assembly_stats.sample_accession
