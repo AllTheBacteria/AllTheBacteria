@@ -1,0 +1,168 @@
+SCHEME	LOCII	TYPES	ALLELES	DATE	LOCII_NAMES
+aactinomycetemcomitans	7	57	106	2020-05-24	adk atpG frdB mdh pgi recA zwf
+abaumannii	7	3627	2031	2025-12-26	Oxf_gltA Oxf_gyrB Oxf_gdhB Oxf_recA Oxf_cpn60 Oxf_gpi Oxf_rpoD
+abaumannii_2	7	3316	3611	2025-12-22	Pas_cpn60 Pas_fusA Pas_gltA Pas_pyrG Pas_recA Pas_rplB Pas_rpoB
+achromobacter	7	623	1251	2025-12-09	nusA rpoB eno gltB lepA nuoL nrdA
+actinobacillus	7	100	341	2025-08-24	adk atpG deoD mdh pgi recA zwf
+aeromonas	6	3610	8931	2025-11-10	gyrB groL gltA metG ppsA recA
+aparagallinarum	7	11	31	2023-11-01	pmi infB mdh adk deoD recA zwf
+aphagocytophilum	8	206	452	2024-12-22	pheS glyA fumC mdh sucA dnaN atpA MLST_cluster
+arcobacter	7	833	2248	2021-02-25	aspA atpA glnA gltA glyA pgm tkt
+bbacilliformis	7	14	32	2017-06-17	ftsZ flaA ribC rnpB rpoB bvrR groEL
+bcc	7	2516	6595	2025-12-17	atpD gltB gyrB recA lepA phaC trpB
+bcereus	7	3396	2731	2025-12-19	glp gmk ilv pta pur pyc tpi
+bfragilis	7	341	322	2025-11-12	dnaJ fusA groL prfA recA rpoB rprX
+bhenselae	8	39	26	2025-05-22	16S batR ftsZ gltA groEL nlpD ribC rpoB
+blicheniformis_14	6	59	71	2023-12-13	adk ccpA recF rpoB spo0A sucC
+bordetella_3	7	118	122	2025-06-30	adk fumC glyA tyrB icd pepA pgm
+borrelia	8	1219	2328	2025-12-11	clpA clpX nifS pepX pyrG recG rplB uvrA
+bpseudomallei	7	2571	1093	2025-11-19	ace gltB gmhD lepA lipA narK ndh
+brachyspira	7	40	173	2025-11-19	Bra_adh Bra_alp Bra_est Bra_gdh Bra_glp Bra_pgm Bra_thi
+brachyspira_2	7	356	272	2025-11-19	Bhy_adh Bhy_alp Bhy_est Bhy_gdh Bhy_glpK Bhy_pgm Bhy_thi
+brachyspira_3	7	83	275	2015-07-20	Bin_adh Bin_alp Bin_est Bin_gdh Bin_glpK Bin_pgm Bin_thi
+brachyspira_4	7	140	522	2021-06-01	Bpi_adh Bpi_alp Bpi_est Bpi_gdh Bpi_glpK Bpi_pgm Bpi_thi
+brachyspira_5	6	23	91	2022-03-28	Bha_adh Bha_est Bha_gdh Bha_glpK Bha_pgm Bha_thi
+brucella	9	124	297	2025-09-02	gap aroA glk dnaK gyrB trpE cobQ int_hyp omp25
+bsubtilis	7	269	721	2025-03-31	glpF ilvD pta purH pycA rpoD tpiA
+bwashoensis	6	22	100	2023-04-04	16S ftsZ gltA groEL ribC rpoB
+campylobacter	7	14888	6778	2025-12-23	aspA glnA gltA glyA pgm tkt uncA
+campylobacter_nonjejuni	7	9	40	2015-01-12	Che_aspA Che_atpA Che_glnA Che_gltA Che_glyA Che_pgm Che_tkt
+campylobacter_nonjejuni_2	7	43	92	2011-11-10	Cin_aspA Cin_atpA Cin_glnA Cin_glyA Cin_pgi Cin_pgm Cin_tkt
+campylobacter_nonjejuni_3	7	342	887	2025-03-04	Cla_adk Cla_atpA Cla_glnA Cla_glyA Cla_pgi Cla_pgm Cla_tkt
+campylobacter_nonjejuni_4	7	297	471	2025-09-02	Cup_adk Cup_aspA Cup_atpA Cup_glnA Cup_glyA Cup_pgi Cup_tkt
+campylobacter_nonjejuni_5	7	231	970	2025-11-19	Cco_aspA Cco_atpA Cco_glnA Cco_gltA Cco_glyA Cco_ilvD Cco_pgm
+campylobacter_nonjejuni_6	7	142	172	2025-03-04	Chy_aspA Chy_atpA Chy_glnA Chy_gltA Chy_glyA Chy_pgm Chy_tkt
+campylobacter_nonjejuni_7	7	178	568	2023-12-01	Cln_aspA Cln_atpA Cln_glnA Cln_gltA Cln_glyA Cln_pgm Cln_tkt
+campylobacter_nonjejuni_8	7	16	43	2011-11-18	Csp_aspA Csp_atpA Csp_glnA Csp_gltA Csp_glyA Csp_pgm Csp_tkt
+campylobacter_nonjejuni_9	7	81	103	2024-06-03	Cfe_aspA Cfe_glnA Cfe_gltA Cfe_glyA Cfe_pgm Cfe_tkt Cfe_uncA
+cbotulinum	7	197	330	2025-11-17	aroE mdh aceK oppB rpoB recA hsp
+cdifficile	7	1275	976	2025-11-17	adk atpA dxr glyA recA sodA tpi
+cdiphtheriae	7	1193	806	2025-12-24	atpA dnaE dnaK fusA leuA odhA rpoB
+cfreundii	7	1342	2416	2025-12-17	aspC clpX fadD mdh arcA dnaG lysP
+chlamydiales	7	488	770	2025-12-16	gatA oppA hflX gidA enoA hemN fumC
+cmaltaromaticum	7	72	147	2024-11-15	dapE ddlA glpQ ilvE leuS pyc pyrE
+cperfringens	8	1243	1571	2025-12-12	colA groEL sodA plc gyrB sigK pgk nadA
+cronobacter	7	1148	2456	2025-12-22	atpD fusA glnS gltB gyrB infB pps
+csepticum	7	17	23	2024-11-21	ddl dnaK glpK groEL gyrA recA tpi
+dnodosus	7	120	152	2022-04-11	dcd dtdA folK recR rlmH rplI tsaE
+ecloacae	7	3405	4575	2025-12-17	dnaA fusA gyrB leuS pyrG rplB rpoB
+ecoli	8	2271	2964	2025-10-20	dinB icdA pabB polB putP trpA trpB uidA
+ecoli_achtman_4	7	16247	11611	2025-01-03	adk fumC gyrB icd mdh purA recA
+edwardsiella	10	103	340	2025-11-06	adk atpD dnaJ gapA glnA hsp60 phoR pyrG rpoA tuf
+efaecalis	7	2139	1021	2025-12-25	gdh gyd pstS gki aroE xpt yqiL
+efaecium	7	3040	1309	2025-12-28	atpA ddl gdh purK gyd pstS adk
+fpsychrophilum	7	399	473	2025-09-22	atpA dnaK fumC gyrB murG trpB tuf
+gallibacterium	8	93	337	2025-04-23	adk atpD fumC gyrB infB mdh recN thdF
+geotrichum	5	40	41	2015-07-29	NUP116 URA1 URA3 SAPT4 PLB3
+halobacteria	5	48	200	2025-09-16	atpB EF-2 radA rpoB' secY
+hcinaedi	7	21	43	2020-10-12	23S_rRNA ppa aspA aroE atpA tkt cdtB
+helicobacter	7	4962	25885	2025-10-31	atpA efp mutY ppa trpC ureI yphC
+hinfluenzae	7	3146	1903	2025-12-19	adk atpG frdB fucK mdh pgi recA
+hparasuis	7	868	545	2025-12-28	atpD infB mdh rpoB 6pgd g3pd frdB
+hsomni	7	3	21	2025-05-14	aroE deoD gdhA gnd gyrA gyrB pgi
+hsuis	7	172	300	2024-06-18	atpA efp mutY ppa trpC ureAB yphC
+kaerogenes	7	857	634	2025-11-21	dnaA fusA gyrB leuS pryG rplB rpoB
+kingella	6	76	99	2021-11-25	abcZ adk aroE cpn60 gdh recA
+klebsiella	7	9507	4906	2025-12-23	gapA infB mdh pgi phoE rpoB tonB
+koxytoca	7	853	736	2025-12-23	gapA infB mdh pgi phoE rpoB tonB
+leptospira	7	386	651	2025-11-06	glmU_1 pntA_1 sucA_1 tpiA_1 pfkB_1 mreA_1 caiB_1
+leptospira_2	7	296	631	2024-09-25	adk_2 glmU_2 icdA_2 lipL32_2 lipL41_2 mreA_2 pntA_2
+leptospira_3	6	205	247	2025-12-19	adk_3 icdA_3 lipL32_3 lipL41_3 rrs2_3 secY_3
+lgarvieae	7	184	482	2025-12-11	als atpA tuf gapC gyrB rpoC galP
+liberibacter	7	14	50	2020-05-07	adk atpA fbpA ftsZ glyA groEL gyrB
+listeria_2	7	3392	4116	2025-12-28	abcZ bglA cat dapE dat ldh lhkA
+llactis_phage	5	371	881	2023-02-20	terL mcp mtp tmp lys
+lsalivarius	5	25	69	2010-12-07	pstB rpsB nrdB rpoA parB
+mabscessus	7	371	335	2025-12-10	argH cya gnd murC pta purH rpoB
+magalactiae	5	35	79	2019-04-24	dnaA gltX gyrB metS tufA
+mamphoriforme	4	13	24	2024-11-01	atpG gyrB rpoB uvrA
+manserisalpingitidis	5	76	187	2020-11-10	atpG fusA pgiB plsY uvrA
+mbovis	7	193	154	2025-06-25	adh1 gltX gpsA gyrB pta2 tdk tkt
+mbovis_2	7	299	240	2025-08-14	dnaA gltX gpsA gyrB pta2 tdk tkt
+mcanis	7	83	153	2019-10-21	ack cpn60 fdh pta purA sar tuf
+mcaseolyticus	7	68	117	2023-12-13	ack cpn60 fdh pta purA sar tuf
+mcatarrhalis_achtman_6	8	935	1216	2025-12-18	abcZ adk efp fumC glyBeta mutY ppa trpE
+mflocculare	3	8	22	2018-07-03	adk rpoB tpiA
+mgallisepticum	7	119	249	2025-12-05	atpG dppC DUF3196 lgT mraW plsC ugpA
+mgallisepticum_2	6	164	182	2025-11-12	atpG2 dnaA fusA rpoB ruvB uvrA
+mgenitalium	6	0	0	Unknown	MLST_adk MLST_atpA MLST_gmk MLST_gyrB MLST_pgm MLST_ppa
+mhaemolytica	7	61	135	2024-03-13	adk aroE deoD gapDH gnd mdh zwf
+mhominis	5	72	134	2025-11-25	uvrA gyrB ftsY tuf gap
+mhominis_3	11	43	190	2023-11-05	eST uvrA gyrB ftsY tuf gap p120' vaa lmp1 lmp3 p60
+mhyopneumoniae	3	255	254	2025-12-14	adk rpoB tpiA
+mhyorhinis	6	265	148	2025-08-20	dnaA rpoB gyrB gltX adk gmk
+mhyosynoviae	7	110	164	2025-12-19	dnaA ftsY fusA gyrB recA rpoB uvrA
+miowae	6	48	80	2023-07-17	dppC ulaA valS rpoC leuS kdpA
+morganella	7	141	476	2025-11-13	gapA gltA infB mdh pgi pyrG recA
+mplutonius	4	51	49	2025-08-12	argE galK gbpB purR
+mpneumoniae	8	53	48	2025-09-29	ppa pgm gyrB gmk glyA atpA arcC adk
+msciuri	7	586	603	2025-10-27	ack aroE ftsZ glpK gmk pta1 tpiA
+msynoviae	7	265	320	2025-09-11	adk atpG efp gmk nagC ppa recA
+mycobacteria_2	8	1113	3451	2025-07-16	S14Z L35 S19 L19 S12 S8 L16 S7
+neisseria	7	19242	8859	2025-12-19	abcZ adk aroE fumC gdh pdhC pgm
+oralstrep	7	79	276	2024-07-23	aroE ddl gdh gki hexB recP xpt
+orhinotracheale	7	48	193	2025-08-15	adk aroE fumC gdhA mdh pgi pmi
+otsutsugamushi	7	183	387	2025-09-22	gpsA mdh nrdB nuoF ppdK sucB sucD
+pacnes_3	8	286	280	2025-12-01	aroE atpD gmk guaA lepA sodA tly CAMP2
+paeruginosa	7	6368	2758	2025-12-03	acsA aroE guaA mutL nuoD ppsA trpE
+pdamselae	6	67	185	2023-08-11	glpF gyrB metG pntA pyrC toxR
+pfluorescens	7	129	675	2022-01-12	glnS gyrB ileS nuoD recA rpoB rpoD
+pgingivalis	7	174	220	2025-06-11	ftsQ gpdxJ hagB mcmA pepO pga recA
+plarvae	7	45	53	2023-06-09	glpF sigF glpT Natrans rpoB ftsA clpC
+pmultocida	7	372	587	2025-12-16	mh_adk mh_aroA mh_deoD mh_gdhA mh_g6pd mh_mdh mh_pgi
+pmultocida_2	7	618	713	2025-12-16	RIRDC_adk RIRDC_est RIRDC_pmi RIRDC_zwf RIRDC_mdh RIRDC_gdh RIRDC_pgi
+ppentosaceus	7	17	57	2013-02-19	gyrB pyc pgm leuS glnA dalR pgI
+pputida	8	311	1197	2025-12-22	argS gyrB ileS nuoC ppsA recA rpoB rpoD
+proteus	6	650	804	2025-12-02	atpD dnaJ mdh pyrC recA rpoD
+providencia	5	364	617	2025-12-23	fusA gyrB ileS lepA leuS
+psalmonis	7	34	57	2024-11-08	dnaK efp fumC glyA murG rpoD trpB
+pstuartii	7	27	56	2025-11-20	arnE ftsH greA rseA tolR yciA znuA
+ranatipestifer	7	269	298	2025-10-22	dnaB groEL gyrA mdh gluD gpi rpoB
+rhodococcus	7	103	141	2025-11-07	gapdh tpi mdh icl rpoB recA adk
+sagalactiae	7	2411	1708	2025-12-04	adhP pheS atr glnA sdhA glcK tkt
+salmonella	7	12931	12497	2026-01-01	aroC dnaN hemD hisD purE sucA thrA
+saureus	7	10780	8107	2025-12-17	arcC aroE glpF gmk pta tpi yqiL
+sbsec	10	241	635	2025-09-08	ddl gki glnA mutS mutS2 pheS proS pyrE thrS tpi
+scanis	7	109	120	2025-09-02	gki gtr murI mutS recP xpt yqiZ
+scapitis	7	60	102	2025-03-12	atpB2 carB clpP hisS mntC phoA rluB
+schromogenes	7	193	291	2024-10-02	arcC hutU fumC dnaJ glpF menF pta
+sdysgalactiae	7	825	646	2025-09-26	gki gtr murI mutS recP xpt atoB
+senterica_achtman_2	7	11188	11155	2025-01-03	aroC dnaN hemD hisD purE sucA thrA
+sepidermidis	7	1287	621	2025-12-18	arcC aroE gtr mutS pyrR tpiA yqiL
+serratia	6	1556	2647	2025-12-15	adk fumC gyrB icd mdh recA
+sgallolyticus	7	130	212	2025-06-05	aroE glgB nifS p20 tkt trpD uvrA
+shaemolyticus	7	202	237	2025-12-04	arcC SH_1200 hemH leuB SH1431 cfxE Ribose_ABC
+shewanella	8	92	316	2025-12-17	16S_rRNA adk atpB guaA gyrB mdh recA rpoS
+shominis	6	238	188	2025-12-10	arcC glpK gtr pta tpiA tuf
+siniae	8	13	31	2021-09-23	dnaN mutL mutM mutS mutX recD2 rnhC yfhQ
+sinorhizobium	10	136	147	2010-05-07	asd edd gap glnD gnd nuoE1 ordL2 recA sucA zwf
+smaltophilia	7	1356	2981	2025-12-15	atpD gapA guaA mutM nuoD ppsA recA
+smitis	7	261	1200	2025-07-01	accA gki hom oppC patB rlmN tsf
+sparasuis	7	174	361	2025-11-26	aroA cpn60 gki mutS recA sdhA thrA
+spneumoniae	7	20455	6707	2025-12-18	aroE gdh gki recP spi xpt ddl
+spseudintermedius	7	3037	515	2025-10-10	ack cpn60 fdh pta purA sar tuf
+spyogenes	7	1679	1335	2025-12-23	gki gtr murI mutS recP xpt yqiL
+ssuis	7	3503	4238	2025-12-28	aroA cpn60 dpr gki mutS recA thrA
+staphlugdunensis	7	42	63	2018-08-06	aroE dat ddl gmk ldh recA yqiL
+sthermophilus	10	140	173	2023-06-15	carB clpX dnaA murC murE pepN pepX pyrG recA rpoB
+streptomyces	6	806	3191	2024-07-11	16S atpD gyrB recA rpoB trpB
+streptothermophilus	6	125	146	2015-07-23	ddlA glcK proA ptsI serB tkt
+suberis	7	2271	766	2025-10-22	arcC ddl gki recP tdk tpi yqiL
+szooepidemicus	7	565	541	2025-11-08	arcC nrdE proS spi tdk tpi yqiL
+taylorella	7	103	213	2025-10-22	gltA gyrB fh shmt tyrB adk txn
+tenacibaculum	7	193	544	2024-01-24	atpA dnaK glyA gyrB infB rlmN tgt
+tpallidum	3	131	121	2025-09-08	TP0136 TP0548 TP0705
+tpyogenes	7	91	234	2025-04-08	adk gyrB leuA metG recA tpi tuf
+tvaginalis	7	73	54	2025-05-02	TRYP GLUT FT2A ALTS DMRP SHMT M6PI
+ureaplasma	4	192	161	2024-01-16	ftsH rpL22 thrS valS
+vcholerae	7	1991	2034	2025-11-25	adk gyrB mdh metE pntA purM pyrC
+vcholerae_2	5	422	179	2019-09-13	asd dnaE lap pgm recA
+vibrio	4	724	1047	2025-12-01	gyrB pyrH recA atpA
+vparahaemolyticus	7	4162	4047	2025-12-16	dnaE gyrB recA dtdS pntA pyrC tnaA
+vtapetis	10	10	72	2011-09-22	atpA fstZ gapA hsp60 pyrH rctB recA rpoA rpoD topA
+vvulnificus	10	758	1457	2025-07-13	glp gyrB mdh metG purM dtdS lysA pntA pyrC tnaA
+wolbachia	5	579	1215	2020-09-01	gatB coxA hcpA ftsZ fbpA
+xfastidiosa	7	90	150	2022-06-29	leuA petC malF cysG holC nuoL gltT
+yersinia	7	170	486	2015-06-16	aarF dfp galR glnS hemA rfaE speA
+ypseudotuberculosis_achtman_3	7	1183	1693	2025-12-15	adk argA aroA glnA thrA tmk trpE
+yruckeri	6	54	52	2023-10-17	glnA gyrB dnaJ thrA hsp60 recA

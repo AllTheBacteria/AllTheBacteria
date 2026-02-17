@@ -1,0 +1,20 @@
+Shigella species ID and Serotyping (ShigEiFinder)
+
+Tool: Shigeifinder 
+
+Database: Shigeifinder DB
+
+Github: https://github.com/LanLab/ShigEiFinder 
+
+Environment: see file shigeifinder_env.txt 
+
+Command run: 
+
+```bash
+cat Shigella_sp.tab | parallel -j 20 --colsep '\t' 'shigeifinder -i {2} --output shigeifinder/{1}_shigeifinder' 
+```
+
+Notes on command run: Shigella_sp.tab file was a subset of MLST types known to be shigella from ecoli_achman_4 scheme, this analysis will not have likely found all the shigella genomes. Will need to expand this to be more comphensive.
+
+OSF project ID code: [https://osf.io/6a8mv](https://osf.io/6a8mv/overview)
+Manuscripts/PMID: PMID: 34889728

@@ -6,6 +6,10 @@ Summary
 
 All `sylph <https://github.com/bluenote-1577/sylph>`_-identified genomes from `AllTheBacteria <https://allthebacteria.readthedocs.io/en/latest/>`_ ``0.2`` and ``incremental release 2024-08`` were typed using various tools
 
+*Acionetobacter baumannii*
+
+* `kaptive <https://github.com/klebgenomics/Kaptive>` _ scheme AbO AbK 
+
 *Bordetella pertussis*
 
 * `mlst <https://github.com/tseemann/mlst>`_ schema `2024-06-10 <https://www.pubmlst.org>`_
@@ -15,6 +19,10 @@ All `sylph <https://github.com/bluenote-1577/sylph>`_-identified genomes from `A
 
 * `mlst <https://github.com/tseemann/mlst>`_ schema `2024-06-10 <https://www.pubmlst.org>`_
 * Toxin
+
+*Clostridium/Sarcina perfringens*
+
+* `Toxinotyping <https://github.com/JA-Lacey/PerfringeTyper>
 
 *Haemophilus* spp.
 
@@ -29,6 +37,10 @@ All `sylph <https://github.com/bluenote-1577/sylph>`_-identified genomes from `A
 
 * `legsta <https://github.com/tseemann/legsta>`_ v0.5.1 (SBT)
 
+*Listeria monocytogenes*
+
+* `lissero <https://github.com/MDU-PHL/LisSero>` _ v0.4.9 
+
 *Mycobacterium tuberculosis*
 
 * `TBProfiler <https://pubmed.ncbi.nlm.nih.gov/31234910/>`_ v6.2.1 (spoligotyping, lineage, antimicrobial resistance)
@@ -40,6 +52,10 @@ All `sylph <https://github.com/bluenote-1577/sylph>`_-identified genomes from `A
 *Neisseria meingitidis*
 
 * `meningotype <https://github.com/MDU-PHL/meningotype>`_ v0.8.5 (MLST, serotype, Finetype, Bexsero antigen typing, MenDeVAR Index)
+
+*Shigella spp* ()
+
+* `speciation_serotype <https://github.com/LanLab/ShigEiFinder>'_ v1.3.4 
 
 *Streptococcus agalactiae* (GBS)
 
@@ -56,3 +72,7 @@ All `sylph <https://github.com/bluenote-1577/sylph>`_-identified genomes from `A
 * `mlst <https://github.com/tseemann/mlst>`_ schema `2024-06-10 <https://www.pubmlst.org>`_
 * `emm-typer <https://github.com/MDU-PHL/emmtyper>`_ v0.2.0
 * `assembly_typer <https://github.com/boasvdp/assembly_snptyper>`_ v0.1.0 (`M1UK <https://pubmed.ncbi.nlm.nih.gov/31519541/>`_, `M1DK <https://pubmed.ncbi.nlm.nih.gov/38961826/>`_)
+
+*Vibrio parahaemolyticus* (Vp)
+
+* `kaptive <https://github.com/klebgenomics/Kaptive>` _ scheme `VpO and VpK <https://github.com/aldertzomer/vibrio_parahaemolyticus_genomoserotyping>`
