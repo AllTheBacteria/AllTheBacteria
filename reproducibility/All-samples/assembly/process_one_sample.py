@@ -4,6 +4,7 @@ import argparse
 import csv
 import gzip
 import hashlib
+import json
 import logging
 import os
 import requests
@@ -19,12 +20,11 @@ def set_status(filename, status):
 
 
 def get_ena_metadata(run_id):
-    wanted_fields = ["run_accession", "fastq_md5", "fastq_ftp"]
     url = "http://www.ebi.ac.uk/ena/portal/api/filereport?"
     data = {
         "accession": run_id,
         "result": "read_run",
-        "fields": ",".join(wanted_fields),
+        "fields": "ALL",
     }
     logging.info(f"Getting metadata from ENA for run {run_id}")
     try:
@@ -44,6 +44,10 @@ def get_ena_metadata(run_id):
 
     lines = [x.rstrip().split("\t") for x in lines]
     result = dict(zip(*lines))
+    required_fields = ["run_accession", "fastq_md5", "fastq_ftp"]
+    missing = [x for x in required_fields if x not in result]
+    if len(missing):
+        raise Exception("Did not get these fields from metadata: " + ",".join(missing))
     logging.info(f"Metadata: {result}")
     return result
 
@@ -92,6 +96,9 @@ def download_reads(run_accession):
         md5_1, md5_2 = md5_from_meta(ena_meta)
     except:
         raise Exception("Error getting ENA metadata")
+
+    with open("ena_meta.json", "w") as f:
+        json.dump(ena_meta, f, indent=2)
 
     if get_md5_of_file(fq1) != md5_1:
         raise Exception(f"Error md5 mismatch fastq file 1 {fq1}")
