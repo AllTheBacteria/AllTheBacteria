@@ -91,6 +91,7 @@ to several hours to run, depending on the sample.
 * `sylph.tsv` - sylph output
 * `nucmer_human.gz` - nucmer output of contigs compared to human genome/HLA
   sequences.
+* `ena_meta.json` - JSON file of ENA metadata for the sample/runs.
 
 
 ## Notes on EBI SLURM cluster
