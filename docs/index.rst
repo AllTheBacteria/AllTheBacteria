@@ -26,6 +26,7 @@ https://github.com/AllTheBacteria/AllTheBacteria/issues
    assemblies
    species_id
    annotation
+   whatsgnu-panallelome
    amr
    defense
    bgcs
