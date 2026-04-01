@@ -95,7 +95,7 @@ Querying a genome
 -----------------
 
 Your input must be a protein FASTA (``.faa``) file. If your genome
-has not yet been annotated with Bakta, see the :doc:`bakta` documentation.
+has not yet been annotated with Bakta, see the :doc:`annotation` documentation.
 
 Basic query (GNU scores only)
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
