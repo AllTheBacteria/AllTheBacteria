@@ -36,6 +36,10 @@ The following files are available on the `WhatsGNU OSF component <https://osf.io
      - Publication figures, per-species GNU histograms, allele frequency tables,
        species-sharing networks, coverage estimates, cross-species allele analyses,
        and the pre-computed counts cache.
+   * - ``panallelome_summary.txt``
+     - Summary results for 2.4M genomes.
+   * - ``panallelome_summary.html``
+     - Summary results with selected summary figures for 2.4M genomes.
 
 Installation
 ------------

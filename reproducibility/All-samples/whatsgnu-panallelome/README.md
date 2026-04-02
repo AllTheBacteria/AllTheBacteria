@@ -217,6 +217,8 @@ See the [readthedocs documentation](https://allthebacteria.readthedocs.io/en/lat
 | ↳ `figures/` | PNG plots corresponding to the tables above: global and per-species GNU histograms, function frequency bar charts, species coverage curves, species-sharing heatmaps, and unique vs shared allele comparisons. |
 | ↳ `publication_figures/` | Publication-quality PNG figures (`pub_01` – `pub_08`): alleles vs genomes scaling, GNU distributions, coverage bars, shared-allele heatmaps, species network, protein vs allele counts, frequency class breakdowns, cumulative distributions, and protein distribution plots. |
 | ↳ `cache/counts_cache.npz` | Pre-computed numpy cache of allele counts from the LMDB database. Used by the plotting scripts to avoid re-reading all shards. Can be regenerated from the database. |
+| **panallelome_summary.txt** | Summary results for 2.4M genomes. |
+| **panallelome_summary.html** | Summary results with selected summary figures for 2.4M genomes. |
 
 ## Cluster-specific notes
 
