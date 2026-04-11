@@ -149,7 +149,8 @@ Steps:
 
        # Attention, the URL might changes,
        # please check in the browser: https://osf.io/zxfmy/files/osfstorage
-       wget https://osf.io/download/4yv85/ -O file_list.all.latest.tsv.gz
+       # This url is for v0.2 + incr_202408 + incr_202505.
+       wget https://osf.io/download/3xs6h/ -O file_list.all.latest.tsv.gz
 
    If you only need to add assemblies from an incremental version,
    please manually download the file list `here <https://osf.io/zxfmy/files/osfstorage>`__.
@@ -159,7 +160,7 @@ Steps:
    ::
 
        # Tarball file names and their URLs
-       zcat file_list.all.latest.tsv.gz | awk -F'\t' 'NR>1 {print $5"\t"$6}' | uniq > tar2url.tsv
+       zcat file_list.all.latest.tsv.gz | awk -F'\t' 'NR>1 {print $4"\t"$5}' | sort | uniq > tar2url.tsv
 
        # Download. If it's interrupted, just rerun the same command.
        cat tar2url.tsv | rush --eta -j 2 -c -C download.rush 'wget -O {1} {2}'
@@ -227,6 +228,8 @@ Steps:
 
        lexicmap index -S -X files.txt -O atb.lmi -b 25000 --log atb.lmi.log
 
+       # It's for the v0.2 + 2024008
+       #
        # dirsize atb.lmi
        atb.lmi: 5.24 TiB (5,758,875,365,595)
          2.87 TiB      seeds
@@ -240,9 +243,9 @@ Steps:
 
    ::
 
-        # Download species_calls.tsv.gz file in the directory (Latest_2024-08) of this page:
+        # Download species_calls.tsv.gz file in the directory (Latest_2025-05) of this page:
         # https://osf.io/h7wzy/files/osfstorage#
-        wget https://osf.io/download/7t9qd/ -O species_calls.tsv.gz
+        wget https://osf.io/download/n7kvu/ -O species_calls.tsv.gz
 
         # Download gtdb-taxdump files of version r214 that was used in
         # taxonomic classification of AllTheBacteria v2.0 and incremental 202408
