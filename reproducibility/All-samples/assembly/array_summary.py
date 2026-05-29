@@ -2,6 +2,7 @@
 
 import argparse
 import gzip
+import json
 import os
 import subprocess
 
@@ -110,15 +111,17 @@ logs_gz = f"{options.outprefix}.logs.gz"
 nucmer_gz = f"{options.outprefix}.nucmer.gz"
 sylph_gz = f"{options.outprefix}.sylph.tsv.gz"
 status_gz = f"{options.outprefix}.status.gz"
+ena_meta_gz = f"{options.outprefix}.ena_meta.jsonl.gz"
 
 
 sample_status = {}
 sylph_no_matches = []
 
-with gzip.open(logs_gz, "wt") as f_log, gzip.open(nucmer_gz, "wt") as f_nuc, gzip.open(sylph_gz, "wt") as f_syl, gzip.open(status_gz, "wt") as f_stat:
+with gzip.open(logs_gz, "wt") as f_log, gzip.open(nucmer_gz, "wt") as f_nuc, gzip.open(sylph_gz, "wt") as f_syl, gzip.open(status_gz, "wt") as f_stat, gzip.open(ena_meta_gz, "wt") as f_ena:
     print(SYLPH_LINE_1, file=f_syl)
     print(NUCMER_LINE_1, file=f_nuc)
     print("Sample", "Status", sep="\t", file=f_stat)
+    ena_keys = None
 
     for array_no in sorted(samples):
         sample = samples[array_no]["sample"]
@@ -153,7 +156,16 @@ with gzip.open(logs_gz, "wt") as f_log, gzip.open(nucmer_gz, "wt") as f_nuc, gzi
             for line in f_in:
                 print(sample, line, sep="\t", end="", file=f_log)
 
-        expect_files = {"nucmer_human.gz", "status.txt", "sylph.tsv", f"{sample}.fa.gz"}
+        try:
+            with open(os.path.join(asm_dir, "ena_meta.json")) as f_in:
+                ena_data = json.load(f_in)
+            ena_data = {k: v for k, v in ena_data.items() if v != ""}
+        except FileNotFoundError:
+            ena_data = {"run_accession": run}
+        print(ena_data, file=f_ena)
+
+
+        expect_files = {"nucmer_human.gz", "status.txt", "sylph.tsv", f"{sample}.fa.gz", "ena_meta.json"}
         for fname in os.listdir(asm_dir):
             if fname in expect_files:
                 continue
