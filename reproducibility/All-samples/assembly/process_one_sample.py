@@ -83,33 +83,51 @@ def get_md5_of_file(filename):
     return hash_md5.hexdigest()
 
 
-def download_reads(run_accession):
+def download_reads_with_enadataget(run_accession):
     command = ["enaDataGet", "-f", "fastq", run_accession]
     logging.info("run: " + " ".join(command))
     try:
         subprocess.check_output(command)
-    except:
-        raise Exception("Error downloading reads")
+    except Exception as e:
+        raise Exception("Error downloading reads with enaDataGet") from e
 
-    fq1 = os.path.join(run_accession, f"{run_accession}_1.fastq.gz")
-    fq2 = os.path.join(run_accession, f"{run_accession}_2.fastq.gz")
-    missing_fastqs = [x for x in [fq1, fq2] if not os.path.exists(x)]
-    if len(missing_fastqs):
-        subprocess.check_output(["rm", "-rf", run_accession])
-        raise Exception(
-            "Error downloading reads. Missing FASTQ file(s): "
-            + ", ".join(missing_fastqs)
-        )
 
-    # enaDataGet can have errors but return zero. Check the md5 of each file
+def download_reads_with_sracha(run_accession):
+    os.mkdir(run_accession)
+    command = [
+        "sracha",
+        "get",
+        "-t",
+        "1",
+        "--connections",
+        "1",
+        "--split",
+        "split-files",
+        run_accession,
+    ]
+    logging.info(f"run in {run_accession}: " + " ".join(command))
+    try:
+        subprocess.check_output(command, cwd=run_accession)
+    except Exception as e:
+        raise Exception("Error downloading reads with sracha") from e
+
+
+def write_ena_meta_and_check_md5s(run_accession, fq1, fq2, check_md5):
     try:
         ena_meta = get_ena_metadata(run_accession)
-        md5_1, md5_2 = md5_from_meta(ena_meta)
+        if check_md5:
+            md5_1, md5_2 = md5_from_meta(ena_meta)
     except Exception as e:
-        raise Exception("Error getting ENA metadata/FASTQ MD5s") from e
+        if check_md5:
+            raise Exception("Error getting ENA metadata/FASTQ MD5s") from e
+        raise Exception("Error getting ENA metadata") from e
 
     with open("ena_meta.json", "w") as f:
         json.dump(ena_meta, f, indent=2)
+
+    if not check_md5:
+        logging.info("Skipping ENA FASTQ MD5 check for non-ENA download")
+        return
 
     got_md5_1 = get_md5_of_file(fq1)
     if got_md5_1 != md5_1:
@@ -124,6 +142,32 @@ def download_reads(run_accession):
             f"Error md5 mismatch fastq file 2 {fq2}: expected {md5_2}, got {got_md5_2}"
         )
     logging.info(f"md5 ok {fq2} {md5_2}")
+
+
+def download_reads(run_accession, download_method):
+    if download_method == "enaDataGet":
+        download_reads_with_enadataget(run_accession)
+    elif download_method == "sracha":
+        download_reads_with_sracha(run_accession)
+    else:
+        raise Exception(f"Unknown download method: {download_method}")
+
+    fq1 = os.path.join(run_accession, f"{run_accession}_1.fastq.gz")
+    fq2 = os.path.join(run_accession, f"{run_accession}_2.fastq.gz")
+    missing_fastqs = [x for x in [fq1, fq2] if not os.path.exists(x)]
+    if len(missing_fastqs):
+        subprocess.check_output(["rm", "-rf", run_accession])
+        raise Exception(
+            "Error downloading reads. Missing FASTQ file(s): "
+            + ", ".join(missing_fastqs)
+        )
+
+    # ENA metadata is still needed regardless of how reads are downloaded.
+    # The ENA FASTQ MD5s are byte-level checks for ENA's gzipped FASTQs, so only
+    # enforce them when the reads came from ENA.
+    write_ena_meta_and_check_md5s(
+        run_accession, fq1, fq2, check_md5=download_method == "enaDataGet"
+    )
 
     return fq1, fq2
 
@@ -301,6 +345,12 @@ parser.add_argument(
 parser.add_argument("--run", required=True, help="Run accession")
 parser.add_argument("--sample", required=True, help="Sample accession")
 parser.add_argument(
+    "--download_method",
+    choices=["enaDataGet", "sracha"],
+    default="enaDataGet",
+    help="Program to download FASTQ files [%(default)s]",
+)
+parser.add_argument(
     "--out", required=True, help="Output directory (must not already exist)"
 )
 
@@ -333,7 +383,7 @@ try:
         for i in range(1, 6):
             logging.info(f"Download reads attempt number {i} of 5")
             try:
-                fq1, fq2 = download_reads(options.run)
+                fq1, fq2 = download_reads(options.run, options.download_method)
             except:
                 subprocess.check_output(["rm", "-rf", options.run])
                 logging.info(f"Download reads attempt number {i} of 5 failed")

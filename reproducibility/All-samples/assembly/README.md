@@ -18,7 +18,8 @@ There is a single script `process_one_sample.py`, which processes one
 sample/paired Illumina run. The input is the run and sample accession, plus
 required singularity containers and data files (these files are all publicly
 available - see below). The script:
-1. Downloads the reads using `enaDataGet` from [enaBrowserTools](https://github.com/enasequence/enaBrowserTools).
+1. Downloads the reads using `enaDataGet` from [enaBrowserTools](https://github.com/enasequence/enaBrowserTools)
+   or `sracha` from [sracha-rs](https://github.com/rnabioco/sracha-rs).
    It tries 5 times then gives up.
 2. Runs [sylph](https://github.com/bluenote-1577/sylph) on the reads, for
    speciation
@@ -35,6 +36,7 @@ available - see below). The script:
 
 To use the script `process_one_sample.py`, you will need these installed:
 * `enaDataGet` from  [enaBrowserTools](https://github.com/enasequence/enaBrowserTools)
+  or `sracha` from [sracha-rs](https://github.com/rnabioco/sracha-rs)
 * The python package `pyfastaq` (`pip install pyfastaq`)
 * [Singularity](https://github.com/sylabs/singularity)
 * [sylph](https://github.com/bluenote-1577/sylph)
@@ -77,6 +79,12 @@ process_one_sample.py \
     --nuc_script /path/to/nucmer_splitter.py \
     --nuc_dir /path/to/GCA_009914755.split_ref
 ```
+
+By default, reads are downloaded with `enaDataGet`. To use `sracha` instead,
+add `--download_method sracha`. This runs `sracha get` with one thread, one
+connection, and `--split split-files`, using sracha's default NCBI download
+source. ENA metadata is still downloaded and written to `ena_meta.json`, but
+the ENA FASTQ MD5 check is only applied when using `enaDataGet`.
 
 It will take up to around 17GB of RAM, and take anything from about 1 hour
 to several hours to run, depending on the sample.
@@ -141,7 +149,15 @@ The paths in this line:
 ./run_one_sample.sh /FIX_PATH/assemblies /FIX_PATH/sample_and_runs_file
 ```
 should match the assemblies directory made earlier, and the samples/run
-accessions file.
+accessions file. To use `sracha` from the wrapper, add `-d sracha`:
+```
+./run_one_sample.sh -d sracha /FIX_PATH/assemblies /FIX_PATH/sample_and_runs_file
+```
+The option can also go after the paths:
+```
+./run_one_sample.sh /FIX_PATH/assemblies /FIX_PATH/sample_and_runs_file -d sracha
+```
+Setting `DOWNLOAD_METHOD=sracha` in the job environment also works.
 
 Job array element `N` will write stdout to `/path/to/logs/N.o`, stderr to
 `/path/to/logs/N.e`, and output of `process_one_sample.py`
@@ -189,5 +205,3 @@ Some notes:
   tries to use them and throws errors. These samples have a status of
   `sylph_fail` because that is the stage that crashed. Sorry sylph, we know
   it's not really your error.
-
-
