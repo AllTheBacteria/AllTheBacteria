@@ -125,8 +125,9 @@ mkdir -p /FIX_PATH/assemblies
 
 Each element of the job array runs the bash script `run_one_sample.sh` - this
 is a wrapper around `process_one_sample.py`.
-It gets the job array index, gets the corresponding line number from the
-file of sample/run accessions, and processes that sample.
+It gets the job array index from `SLURM_ARRAY_TASK_ID` or `LSB_JOBINDEX`,
+gets the corresponding line number from the file of sample/run accessions,
+and processes that sample.
 
 You will need to edit the paths in `run_one_sample.sh` to point to the
 correct places - everywhere where there is `FIX_PATH`.
@@ -146,16 +147,18 @@ file of sample/run accessions. Edit this line accordingly:
 ```
 The paths in this line:
 ```
-./run_one_sample.sh /FIX_PATH/assemblies /FIX_PATH/sample_and_runs_file
+./run_one_sample.sh /FIX_PATH/assemblies /FIX_PATH/sample_and_runs_file SLURM
 ```
 should match the assemblies directory made earlier, and the samples/run
-accessions file. To use `sracha` from the wrapper, add `-d sracha`:
+accessions file. The final argument must be `SLURM` or `LSF`, depending on
+the scheduler running the job array. To use `sracha` from the wrapper, add
+`-d sracha`:
 ```
-./run_one_sample.sh -d sracha /FIX_PATH/assemblies /FIX_PATH/sample_and_runs_file
+./run_one_sample.sh -d sracha /FIX_PATH/assemblies /FIX_PATH/sample_and_runs_file SLURM
 ```
 The option can also go after the paths:
 ```
-./run_one_sample.sh /FIX_PATH/assemblies /FIX_PATH/sample_and_runs_file -d sracha
+./run_one_sample.sh /FIX_PATH/assemblies /FIX_PATH/sample_and_runs_file SLURM -d sracha
 ```
 Setting `DOWNLOAD_METHOD=sracha` in the job environment also works.
 

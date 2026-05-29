@@ -3,7 +3,7 @@
 set -eu
 
 usage() {
-    echo "Usage: $0 [-d enaDataGet|sracha] root_out samples_file" >&2
+    echo "Usage: $0 [-d enaDataGet|sracha] root_out samples_file LSF|SLURM" >&2
 }
 
 download_method=${DOWNLOAD_METHOD:-enaDataGet}
@@ -46,7 +46,7 @@ do
     esac
 done
 
-if [ "${#positional[@]}" -ne 2 ]
+if [ "${#positional[@]}" -ne 3 ]
 then
     usage
     exit 1
@@ -54,6 +54,7 @@ fi
 
 root_out=${positional[0]}
 samples_file=${positional[1]}
+scheduler=${positional[2]}
 
 case "$download_method" in
     enaDataGet|sracha) ;;
@@ -63,12 +64,41 @@ case "$download_method" in
         ;;
 esac
 
-echo "SLURM_ARRAY_TASK_ID: $SLURM_ARRAY_TASK_ID"
+case "$scheduler" in
+    LSF)
+        if [ -z "${LSB_JOBINDEX:-}" ]
+        then
+            echo "ERROR: LSB_JOBINDEX is not set" >&2
+            exit 1
+        fi
+        array_index=$LSB_JOBINDEX
+        echo "LSB_JOBINDEX: $array_index"
+        ;;
+    SLURM)
+        if [ -z "${SLURM_ARRAY_TASK_ID:-}" ]
+        then
+            echo "ERROR: SLURM_ARRAY_TASK_ID is not set" >&2
+            exit 1
+        fi
+        array_index=$SLURM_ARRAY_TASK_ID
+        echo "SLURM_ARRAY_TASK_ID: $array_index"
+        ;;
+    *)
+        echo "ERROR: scheduler must be LSF or SLURM. Got: $scheduler" >&2
+        exit 1
+        ;;
+esac
 
-a=$(awk "NR==$SLURM_ARRAY_TASK_ID" "$samples_file")
+a=$(awk -v i="$array_index" 'NR==i' "$samples_file")
+if [ -z "$a" ]
+then
+    echo "ERROR: no line $array_index found in $samples_file" >&2
+    exit 1
+fi
 sample=$(echo "$a" | cut -d" " -f1)
 run=$(echo "$a" | cut -d" " -f2)
 
+echo "scheduler: $scheduler"
 echo "sample: $sample"
 echo "run: $run"
 echo "download_method: $download_method"

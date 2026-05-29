@@ -22,7 +22,7 @@ end_seconds=$(date +%s)
 wall_clock_s=$(($end_seconds-$start_seconds))
 echo -e "SLURM_STATS_BEGIN
 SLURM_STATS	job_id	$SLURM_JOB_ID
-SLURM_STATS	command	./run_one_sample.sh /FIX_PATH/assemblies /FIX_PATH/sample_and_runs_file
+SLURM_STATS	command	./run_one_sample.sh /FIX_PATH/assemblies /FIX_PATH/sample_and_runs_file SLURM
 SLURM_STATS	requested_ram	18.0
 SLURM_STATS	requested_time	1000
 SLURM_STATS	job_name	atb_asm
@@ -43,10 +43,9 @@ fi
 trap gather_stats EXIT SIGUSR1
 
 /usr/bin/time -a -o /FIX_PATH/logs/$SLURM_ARRAY_TASK_ID.o -v $SHELL -c "$(cat << 'EOF'
-./run_one_sample.sh /FIX_PATH/assemblies /FIX_PATH/sample_and_runs_file
+./run_one_sample.sh /FIX_PATH/assemblies /FIX_PATH/sample_and_runs_file SLURM
 EOF
 )"
 
 exit_code=$?
 gather_stats
-
