@@ -29,8 +29,8 @@ def get_ena_metadata(run_id):
     logging.info(f"Getting metadata from ENA for run {run_id}")
     try:
         r = requests.get(url, data)
-    except:
-        raise Exception(f"Error querying ENA to get sample from run {run_id} {r.url}")
+    except Exception as e:
+        raise Exception(f"Error querying ENA to get sample from run {run_id}") from e
 
     if r.status_code != requests.codes.ok:
         raise Exception(
@@ -55,7 +55,11 @@ def get_ena_metadata(run_id):
 def md5_from_meta(meta):
     files = meta["fastq_ftp"].split(";")
     md5s = meta["fastq_md5"].split(";")
-    assert len(files) == len(md5s)
+    if len(files) != len(md5s):
+        raise Exception(
+            "Different numbers of FASTQ files and MD5s in ENA metadata: "
+            f"{meta['fastq_ftp']} / {meta['fastq_md5']}"
+        )
     md5_1 = None
     md5_2 = None
     for fname, md5 in zip(files, md5s):
@@ -63,8 +67,11 @@ def md5_from_meta(meta):
             md5_1 = md5
         elif fname.endswith("_2.fastq.gz"):
             md5_2 = md5
-    assert md5_1 is not None
-    assert md5_2 is not None
+    if md5_1 is None or md5_2 is None:
+        raise Exception(
+            "Could not find paired FASTQ MD5s in ENA metadata: "
+            f"{meta['fastq_ftp']} / {meta['fastq_md5']}"
+        )
     return md5_1, md5_2
 
 
@@ -86,26 +93,36 @@ def download_reads(run_accession):
 
     fq1 = os.path.join(run_accession, f"{run_accession}_1.fastq.gz")
     fq2 = os.path.join(run_accession, f"{run_accession}_2.fastq.gz")
-    if not os.path.exists(fq1) and os.path.exists(fq2):
+    missing_fastqs = [x for x in [fq1, fq2] if not os.path.exists(x)]
+    if len(missing_fastqs):
         subprocess.check_output(["rm", "-rf", run_accession])
-        raise Exception("Error downloading reads")
+        raise Exception(
+            "Error downloading reads. Missing FASTQ file(s): "
+            + ", ".join(missing_fastqs)
+        )
 
     # enaDataGet can have errors but return zero. Check the md5 of each file
     try:
         ena_meta = get_ena_metadata(run_accession)
         md5_1, md5_2 = md5_from_meta(ena_meta)
-    except:
-        raise Exception("Error getting ENA metadata")
+    except Exception as e:
+        raise Exception("Error getting ENA metadata/FASTQ MD5s") from e
 
     with open("ena_meta.json", "w") as f:
         json.dump(ena_meta, f, indent=2)
 
-    if get_md5_of_file(fq1) != md5_1:
-        raise Exception(f"Error md5 mismatch fastq file 1 {fq1}")
+    got_md5_1 = get_md5_of_file(fq1)
+    if got_md5_1 != md5_1:
+        raise Exception(
+            f"Error md5 mismatch fastq file 1 {fq1}: expected {md5_1}, got {got_md5_1}"
+        )
     logging.info(f"md5 ok {fq1} {md5_1}")
 
-    if get_md5_of_file(fq2) != md5_2:
-        raise Exception(f"Error md5 mismatch fastq file 2 {fq2}")
+    got_md5_2 = get_md5_of_file(fq2)
+    if got_md5_2 != md5_2:
+        raise Exception(
+            f"Error md5 mismatch fastq file 2 {fq2}: expected {md5_2}, got {got_md5_2}"
+        )
     logging.info(f"md5 ok {fq2} {md5_2}")
 
     return fq1, fq2
