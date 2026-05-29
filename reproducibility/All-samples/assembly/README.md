@@ -208,3 +208,22 @@ Some notes:
   tries to use them and throws errors. These samples have a status of
   `sylph_fail` because that is the stage that crashed. Sorry sylph, we know
   it's not really your error.
+
+
+## Notes on Sanger LSF cluster
+
+Running on the Sanger cluster is very similar to EBI. The only differences
+result from EBI using SLURM and Sanger using LSF for job scheduling.
+The setup for Sanger is nearly identical to that described above for EBI,
+except for a few small differences.
+
+There is a helper script `run_one_lsf_array.sh` that can submit one job array
+- it is a wrapper around the `bsub` command, similarly to the `sbatch` script
+used for EBI/SLURM.
+Every `FIX_PATH` will need editing to the correct paths. By default,
+`run_one_lsf_array.sh` uses `enaDataGet`; run it with
+`DOWNLOAD_METHOD=sracha ./run_one_lsf_array.sh` to use `sracha`. The size of the
+job array will need to match the number of lines in the samples/runs file
+by changing the `4000` to the correct number in here:
+`-J "atb_assembly[1-4000]%50"`. The `%50` limits 50 running at a time, which
+you may wish to change.
