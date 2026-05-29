@@ -147,18 +147,18 @@ file of sample/run accessions. Edit this line accordingly:
 ```
 The paths in this line:
 ```
-./run_one_sample.sh /FIX_PATH/assemblies /FIX_PATH/sample_and_runs_file SLURM
+./run_one_sample.sh -s SLURM /FIX_PATH/assemblies /FIX_PATH/sample_and_runs_file
 ```
 should match the assemblies directory made earlier, and the samples/run
-accessions file. The final argument must be `SLURM` or `LSF`, depending on
-the scheduler running the job array. To use `sracha` from the wrapper, add
-`-d sracha`:
+accessions file. `run_one_sample.sh` defaults to `LSF`; use `-s SLURM` when
+running from a SLURM job array. To use `sracha` from the wrapper, add
+`-d sracha` as well:
 ```
-./run_one_sample.sh -d sracha /FIX_PATH/assemblies /FIX_PATH/sample_and_runs_file SLURM
+./run_one_sample.sh -s SLURM -d sracha /FIX_PATH/assemblies /FIX_PATH/sample_and_runs_file
 ```
-The option can also go after the paths:
+The options can also go after the paths:
 ```
-./run_one_sample.sh /FIX_PATH/assemblies /FIX_PATH/sample_and_runs_file SLURM -d sracha
+./run_one_sample.sh /FIX_PATH/assemblies /FIX_PATH/sample_and_runs_file -s SLURM -d sracha
 ```
 Setting `DOWNLOAD_METHOD=sracha` in the job environment also works.
 
@@ -221,7 +221,8 @@ There is a helper script `run_one_lsf_array.sh` that can submit one job array
 - it is a wrapper around the `bsub` command, similarly to the `sbatch` script
 used for EBI/SLURM.
 Every `FIX_PATH` will need editing to the correct paths. By default,
-`run_one_lsf_array.sh` uses `enaDataGet`; run it with
+`run_one_sample.sh` uses `LSF`, so the old two-argument call still works on
+LSF. By default, `run_one_lsf_array.sh` uses `enaDataGet`; run it with
 `DOWNLOAD_METHOD=sracha ./run_one_lsf_array.sh` to use `sracha`. The size of the
 job array will need to match the number of lines in the samples/runs file
 by changing the `4000` to the correct number in here:

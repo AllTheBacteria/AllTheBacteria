@@ -19,4 +19,4 @@ bsub \
     -o "$logs_dir/%I.o" \
     -e "$logs_dir/%I.e" \
     -J "atb_assembly[1-4000]%50" \
-    ./run_one_sample.sh -d "$download_method" "$asm_dir" "$samples_runs_file" LSF
+    ./run_one_sample.sh -d "$download_method" "$asm_dir" "$samples_runs_file"

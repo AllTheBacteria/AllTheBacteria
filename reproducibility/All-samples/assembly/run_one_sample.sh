@@ -3,10 +3,11 @@
 set -eu
 
 usage() {
-    echo "Usage: $0 [-d enaDataGet|sracha] root_out samples_file LSF|SLURM" >&2
+    echo "Usage: $0 [-d enaDataGet|sracha] [-s LSF|SLURM] root_out samples_file" >&2
 }
 
 download_method=${DOWNLOAD_METHOD:-enaDataGet}
+scheduler=LSF
 positional=()
 
 while [ "$#" -gt 0 ]
@@ -20,6 +21,16 @@ do
                 exit 1
             fi
             download_method=$2
+            shift 2
+            ;;
+        -s|--scheduler)
+            if [ "$#" -lt 2 ]
+            then
+                echo "ERROR: missing value for $1" >&2
+                usage
+                exit 1
+            fi
+            scheduler=$2
             shift 2
             ;;
         -h|--help)
@@ -46,7 +57,7 @@ do
     esac
 done
 
-if [ "${#positional[@]}" -ne 3 ]
+if [ "${#positional[@]}" -ne 2 ]
 then
     usage
     exit 1
@@ -54,7 +65,6 @@ fi
 
 root_out=${positional[0]}
 samples_file=${positional[1]}
-scheduler=${positional[2]}
 
 case "$download_method" in
     enaDataGet|sracha) ;;
