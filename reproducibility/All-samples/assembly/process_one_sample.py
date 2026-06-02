@@ -13,6 +13,7 @@ import pyfastaq
 import random
 import time
 
+pyfastaq.sequences.Fasta.line_length = 0
 
 def set_status(filename, status):
     with open(filename, "w") as f:
