@@ -118,7 +118,7 @@ it from that. We apologise for the inconvenience, but bear in mind
 that miniphy compression makes a huge difference. For example, the
 size of the individual gzipped FASTA files for release 0.2 is
 around 3.1TB. This is too large to sensibly put on OSF.
-The total size of the same data but in compressed archive files is 89GB.
+The total size of the same release 0.2 data but in compressed archive files is 89GB.
 
 The latest list of all samples and their related file names are
 in the file `file_list.all.latest.tsv.gz <https://osf.io/zxfmy/files/3xs6h>`_.
@@ -155,11 +155,10 @@ filename in the download URL.
 
 Here's an example of how to get the wget commands to run::
 
-    $ gunzip -c file_list.all.latest.tsv.gz | awk -F"\t" 'NR>1 {print "wget -O "$4" "$5}' | uniq | head -n3
-    wget -O atb.assembly.r0.2.batch.127.tar.xz https://osf.io/download/6671719165e1de5eb5893c28/
-    wget -O atb.assembly.r0.2.batch.136.tar.xz https://osf.io/download/66717ce2d835c439e94cdf1e/
-    wget -O atb.assembly.r0.2.batch.625.tar.xz https://osf.io/download/6672f5a7d835c43c944ce4e8/
-
+    $ gunzip -c file_list.all.latest.tsv.gz | awk -F"\t" 'NR>1 {print "wget -O "$4" "$5}' | sort | uniq | head -n3
+    wget -O atb.assembly.incr_release.202408.batch.1.tar.xz https://osf.io/download/bfeqh/
+    wget -O atb.assembly.incr_release.202408.batch.10.tar.xz https://osf.io/download/66d9a2958e73e77956a3cc98/
+    wget -O atb.assembly.incr_release.202408.batch.100.tar.xz https://osf.io/download/78z23/
 
 If you just want one sample, for example sample SAMD00000355,
 then this is the info in `file_list.all.latest.tsv.gz <https://osf.io/zxfmy/files/3xs6h>`_::
