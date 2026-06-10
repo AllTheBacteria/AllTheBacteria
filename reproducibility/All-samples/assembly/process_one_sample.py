@@ -15,6 +15,9 @@ import time
 
 pyfastaq.sequences.Fasta.line_length = 0
 
+DOWNLOAD_METHODS = ("enaDataGet", "sracha")
+
+
 def set_status(filename, status):
     with open(filename, "w") as f:
         print(status, file=f)
@@ -171,6 +174,24 @@ def download_reads(run_accession, download_method):
     )
 
     return fq1, fq2
+
+
+def parse_download_methods(download_method):
+    methods = download_method.split(",")
+    if any(x == "" for x in methods):
+        raise argparse.ArgumentTypeError(
+            "download_method must be a comma-separated list of: "
+            + ",".join(DOWNLOAD_METHODS)
+        )
+
+    invalid = [x for x in methods if x not in DOWNLOAD_METHODS]
+    if len(invalid):
+        raise argparse.ArgumentTypeError(
+            f"Unknown download method(s): {','.join(invalid)}. "
+            f"Allowed methods: {','.join(DOWNLOAD_METHODS)}"
+        )
+
+    return methods
 
 
 def gzip_check(filename):
@@ -347,9 +368,13 @@ parser.add_argument("--run", required=True, help="Run accession")
 parser.add_argument("--sample", required=True, help="Sample accession")
 parser.add_argument(
     "--download_method",
-    choices=["enaDataGet", "sracha"],
-    default="enaDataGet",
-    help="Program to download FASTQ files [%(default)s]",
+    type=parse_download_methods,
+    default=["enaDataGet"],
+    metavar="METHOD[,METHOD...]",
+    help=(
+        "Comma-separated programs to try in order when downloading FASTQ files. "
+        f"Allowed: {','.join(DOWNLOAD_METHODS)} [enaDataGet]"
+    ),
 )
 parser.add_argument(
     "--out", required=True, help="Output directory (must not already exist)"
@@ -381,19 +406,30 @@ try:
         fq1, fq2 = options.test1, options.test2
     else:
         dl_ok = False
-        for i in range(1, 6):
-            logging.info(f"Download reads attempt number {i} of 5")
-            try:
-                fq1, fq2 = download_reads(options.run, options.download_method)
-            except:
-                subprocess.check_output(["rm", "-rf", options.run])
-                logging.info(f"Download reads attempt number {i} of 5 failed")
-                time.sleep(random.randint(10, 30))
-                continue
-            dl_ok = True
-            break
+        for download_method in options.download_method:
+            for i in range(1, 6):
+                logging.info(
+                    f"Download reads with {download_method} attempt number {i} of 5"
+                )
+                try:
+                    fq1, fq2 = download_reads(options.run, download_method)
+                except:
+                    subprocess.check_output(["rm", "-rf", options.run])
+                    logging.info(
+                        f"Download reads with {download_method} attempt number {i} "
+                        "of 5 failed"
+                    )
+                    time.sleep(random.randint(10, 30))
+                    continue
+                dl_ok = True
+                break
+            if dl_ok:
+                break
         if not dl_ok:
-            raise Exception("5 attempts at downloading reads failed")
+            raise Exception(
+                "5 attempts at downloading reads failed for each method: "
+                + ",".join(options.download_method)
+            )
 except:
     set_status(status_file, "downloaded_reads_fail")
     raise Exception("Error downloading reads. Stopping")

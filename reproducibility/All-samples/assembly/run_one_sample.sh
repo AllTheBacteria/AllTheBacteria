@@ -3,7 +3,7 @@
 set -eu
 
 usage() {
-    echo "Usage: $0 [-d enaDataGet|sracha] [-s LSF|SLURM] root_out samples_file" >&2
+    echo "Usage: $0 [-d enaDataGet[,sracha]] [-s LSF|SLURM] root_out samples_file" >&2
 }
 
 download_method=${DOWNLOAD_METHOD:-enaDataGet}
@@ -67,12 +67,23 @@ root_out=${positional[0]}
 samples_file=${positional[1]}
 
 case "$download_method" in
-    enaDataGet|sracha) ;;
-    *)
-        echo "ERROR: download_method must be enaDataGet or sracha. Got: $download_method" >&2
+    ""|,*|*,|*,,*)
+        echo "ERROR: download_method must be a comma-separated list using enaDataGet and/or sracha. Got: $download_method" >&2
         exit 1
         ;;
 esac
+
+IFS=',' read -r -a download_methods <<< "$download_method"
+for method in "${download_methods[@]}"
+do
+    case "$method" in
+        enaDataGet|sracha) ;;
+        *)
+            echo "ERROR: download_method must be a comma-separated list using enaDataGet and/or sracha. Got: $download_method" >&2
+            exit 1
+            ;;
+    esac
+done
 
 case "$scheduler" in
     LSF)
