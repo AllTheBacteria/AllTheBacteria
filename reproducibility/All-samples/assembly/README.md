@@ -83,8 +83,9 @@ process_one_sample.py \
 By default, reads are downloaded with `enaDataGet`. To use `sracha` instead,
 add `--download_method sracha`. To try multiple download methods, give a
 comma-separated list, for example `--download_method enaDataGet,sracha`.
-Each method is tried up to five times before moving to the next method. The
-`sracha` method runs `sracha get` with one thread, one connection, and
+The method list is tried in order up to three times, so
+`enaDataGet,sracha` tries `enaDataGet`, then `sracha`, then repeats that order.
+The `sracha` method runs `sracha get` with one thread, one connection, and
 `--split split-files`, using sracha's default NCBI download source. ENA
 metadata is still downloaded and written to `ena_meta.json`, but the ENA FASTQ
 MD5 check is only applied when using `enaDataGet`.

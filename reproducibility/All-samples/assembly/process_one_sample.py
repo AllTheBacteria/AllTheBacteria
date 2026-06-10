@@ -16,6 +16,7 @@ import time
 pyfastaq.sequences.Fasta.line_length = 0
 
 DOWNLOAD_METHODS = ("enaDataGet", "sracha")
+DOWNLOAD_ATTEMPTS = 3
 
 
 def set_status(filename, status):
@@ -406,10 +407,11 @@ try:
         fq1, fq2 = options.test1, options.test2
     else:
         dl_ok = False
-        for download_method in options.download_method:
-            for i in range(1, 6):
+        for i in range(1, DOWNLOAD_ATTEMPTS + 1):
+            for download_method in options.download_method:
                 logging.info(
-                    f"Download reads with {download_method} attempt number {i} of 5"
+                    f"Download reads with {download_method} attempt number "
+                    f"{i} of {DOWNLOAD_ATTEMPTS}"
                 )
                 try:
                     fq1, fq2 = download_reads(options.run, download_method)
@@ -417,7 +419,7 @@ try:
                     subprocess.check_output(["rm", "-rf", options.run])
                     logging.info(
                         f"Download reads with {download_method} attempt number {i} "
-                        "of 5 failed"
+                        f"of {DOWNLOAD_ATTEMPTS} failed"
                     )
                     time.sleep(random.randint(10, 30))
                     continue
@@ -427,7 +429,7 @@ try:
                 break
         if not dl_ok:
             raise Exception(
-                "5 attempts at downloading reads failed for each method: "
+                f"{DOWNLOAD_ATTEMPTS} rounds of download attempts failed for methods: "
                 + ",".join(options.download_method)
             )
 except:
